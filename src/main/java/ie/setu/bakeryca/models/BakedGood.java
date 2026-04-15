@@ -8,7 +8,7 @@ public class BakedGood implements Serializable {
     private String placeOfOrigin;
     private String description;
     private String imageUrl;
-    private Recipe recipe;
+    Recipe recipe;
 
     public BakedGood(String name, String placeOfOrigin, String description, String imageUrl) {
         this.name = name;
@@ -34,11 +34,6 @@ public class BakedGood implements Serializable {
         return recipe.removeEntry(index);
     }
 
-    // adds up the calories from every ingredient in the recipe
-    public double getTotalCalories() {
-        return recipe.getTotalCalories();
-    }
-
     // checks name, origin, description, and all recipe ingredients for what is being searched
     public boolean matchesSearch(String term) {
         String lower = term.toLowerCase();
@@ -60,7 +55,7 @@ public class BakedGood implements Serializable {
                 + "Place of Origin: " + placeOfOrigin + "\n"
                 + "Description: " + description + "\n"
                 + "Image URL: " + imageUrl + "\n"
-                + "Total Calories: " + String.format("%.0f", getTotalCalories()) + " kcal\n"
+                + "Total Calories: " + String.format("%.0f", recipe.getTotalCalories()) + " kcal\n"
                 + "\n--- Recipe / Ingredients ---\n"
                 + recipe.getDisplayText();
     }

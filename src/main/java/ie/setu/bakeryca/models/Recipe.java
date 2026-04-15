@@ -42,28 +42,6 @@ public class Recipe implements Serializable {
         return total;
     }
 
-    // searches if any entry in this recipe uses the given ingredient
-    public boolean usesIngredient(Ingredient target) {
-        for (int i = 0; i < entries.size(); i++) {
-            if (entries.get(i).getIngredient() == target) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    // strips every entry that uses the given ingredient (called when an ingredient is deleted)
-    public void stripIngredient(Ingredient target) {
-        int j = 0;
-        while (j < entries.size()) {
-            if (entries.get(j).getIngredient() == target) {
-                entries.remove(j);
-            } else {
-                j++;
-            }
-        }
-    }
-
     public String getDisplayText() {
         if (entries.isEmpty()) {
             return "  No ingredients added yet.";

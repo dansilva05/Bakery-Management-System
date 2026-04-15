@@ -1,10 +1,10 @@
 package ie.setu.bakeryca.models;
 
-// asked Claude for help
+// asked Claude for help on how to get the result of two lists
 public class SearchResult {
 
     private String type;
-    private BakedGood bakedGood; // populated when kind is "BakedGood"
+    private BakedGood bakedGood; // populated when type is "BakedGood"
     private Ingredient ingredient;
 
     // builds a result for a baked good match
@@ -23,7 +23,7 @@ public class SearchResult {
     public BakedGood getBakedGood() { return bakedGood; }
     public Ingredient getIngredient() { return ingredient; }
 
-    // shown in the search results list
+    // shown in the search results
     @Override
     public String toString() {
         if (type.equals("BakedGood")) {
