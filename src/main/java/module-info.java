@@ -9,4 +9,5 @@ module ie.setu.bakeryca {
     opens ie.setu.bakeryca to javafx.fxml;
     opens ie.setu.bakeryca.controllers to javafx.fxml;
     opens ie.setu.bakeryca.pages to javafx.graphics, javafx.fxml;
+    opens ie.setu.bakeryca.services to javafx.base;
 }
