@@ -237,7 +237,7 @@
                                                         <Insets bottom="5.0" left="20.0" right="10.0" top="15.0" />
                                                     </VBox.margin>
                                                 </Label>
-                                                <ComboBox fx:id="browseBakedGood" onAction="#browseBakedGoodChanged" prefHeight="25.0" prefWidth="250.0">
+                                                <ComboBox fx:id="browseBakedGood" onAction="#browseBakedGood" prefHeight="25.0" prefWidth="250.0">
                                                     <VBox.margin>
                                                         <Insets bottom="15.0" left="15.0" right="10.0" />
                                                     </VBox.margin>
@@ -247,7 +247,7 @@
                                                         <Insets bottom="5.0" left="20.0" right="10.0" />
                                                     </VBox.margin>
                                                 </Label>
-                                                <ComboBox fx:id="browseIngredient" onAction="#browseIngredientChanged" prefHeight="25.0" prefWidth="250.0">
+                                                <ComboBox fx:id="browseIngredient" onAction="#browseIngredient" prefHeight="25.0" prefWidth="250.0">
                                                     <VBox.margin>
                                                         <Insets bottom="15.0" left="15.0" right="10.0" />
                                                     </VBox.margin>

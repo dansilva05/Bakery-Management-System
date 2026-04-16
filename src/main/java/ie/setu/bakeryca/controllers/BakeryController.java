@@ -7,7 +7,7 @@ import ie.setu.bakeryca.services.*;
 import ie.setu.bakeryca.models.*;
 import ie.setu.bakeryca.core.*;
 import ie.setu.bakeryca.*;
-import static java.lang.Float.*;
+import java.lang.Float.*;
 
 public class BakeryController {
 
@@ -49,12 +49,13 @@ public class BakeryController {
     private LinkedList<SearchResult> lastSearchResults = new LinkedList<>();
     @FXML
     public void initialize() {
-        // GPT wrote all the countries name as Strings
-        choiceBgOrigin.getItems().addAll("Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Antigua and Barbuda", "Argentina", "Armenia", "Australia", "Austria", "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bhutan", "Bolivia", "Bosnia and Herzegovina", "Botswana", "Brazil", "Brunei", "Bulgaria", "Burkina Faso", "Burundi", "Cabo Verde", "Cambodia", "Cameroon", "Canada", "Central African Republic", "Chad", "Chile", "China", "Colombia", "Comoros", "Congo", "Costa Rica", "Côte d'Ivoire", "Croatia", "Cuba", "Cyprus", "Czech Republic", "Democratic Republic of the Congo", "Denmark", "Djibouti", "Dominica", "Dominican Republic", "Ecuador", "Egypt", "El Salvador", "Equatorial Guinea", "Eritrea", "Estonia", "Eswatini", "Ethiopia", "Fiji", "Finland", "France", "Gabon", "Gambia", "Georgia", "Germany", "Ghana", "Greece", "Grenada", "Guatemala", "Guinea", "Guinea-Bissau", "Guyana", "Haiti", "Honduras", "Hungary", "Iceland", "India", "Indonesia", "Iran", "Iraq", "Ireland", "Israel", "Italy", "Jamaica", "Japan", "Jordan", "Kazakhstan", "Kenya", "Kiribati", "Kuwait", "Kyrgyzstan", "Laos", "Latvia", "Lebanon", "Lesotho", "Liberia", "Libya", "Liechtenstein", "Lithuania", "Luxembourg", "Madagascar", "Malawi", "Malaysia", "Maldives", "Mali", "Malta", "Marshall Islands", "Mauritania", "Mauritius", "Mexico", "Micronesia", "Moldova", "Monaco", "Mongolia", "Montenegro", "Morocco", "Mozambique", "Myanmar", "Namibia", "Nauru", "Nepal", "Netherlands", "New Zealand", "Nicaragua", "Niger", "Nigeria", "North Korea", "North Macedonia", "Norway", "Oman", "Pakistan", "Palau", "Palestine", "Panama", "Papua New Guinea", "Paraguay", "Peru", "Philippines", "Poland", "Portugal", "Qatar", "Romania", "Russia", "Rwanda", "Saint Kitts and Nevis", "Saint Lucia", "Saint Vincent and the Grenadines", "Samoa", "San Marino", "Sao Tome and Principe", "Saudi Arabia", "Senegal", "Serbia", "Seychelles", "Sierra Leone", "Singapore", "Slovakia", "Slovenia", "Solomon Islands", "Somalia", "South Africa", "South Korea", "South Sudan", "Spain", "Sri Lanka", "Sudan", "Suriname", "Sweden", "Switzerland", "Syria", "Tajikistan", "Tanzania", "Thailand", "Timor-Leste", "Togo", "Tonga", "Trinidad and Tobago", "Tunisia", "Turkey", "Turkmenistan", "Tuvalu", "Uganda", "Ukraine", "United Arab Emirates", "United Kingdom", "United States", "Uruguay", "Uzbekistan", "Vanuatu", "Vatican City", "Venezuela", "Vietnam", "Yemen", "Zambia", "Zimbabwe");
-
         reportMessage("Welcome!");
         fillAllChoiceBoxes();
         refreshAllStock();
+
+        // GPT wrote all the countries name as Strings
+        choiceBgOrigin.getItems().addAll("Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Antigua and Barbuda", "Argentina", "Armenia", "Australia", "Austria", "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bhutan", "Bolivia", "Bosnia and Herzegovina", "Botswana", "Brazil", "Brunei", "Bulgaria", "Burkina Faso", "Burundi", "Cabo Verde", "Cambodia", "Cameroon", "Canada", "Central African Republic", "Chad", "Chile", "China", "Colombia", "Comoros", "Congo", "Costa Rica", "Côte d'Ivoire", "Croatia", "Cuba", "Cyprus", "Czech Republic", "Democratic Republic of the Congo", "Denmark", "Djibouti", "Dominica", "Dominican Republic", "Ecuador", "Egypt", "El Salvador", "Equatorial Guinea", "Eritrea", "Estonia", "Eswatini", "Ethiopia", "Fiji", "Finland", "France", "Gabon", "Gambia", "Georgia", "Germany", "Ghana", "Greece", "Grenada", "Guatemala", "Guinea", "Guinea-Bissau", "Guyana", "Haiti", "Honduras", "Hungary", "Iceland", "India", "Indonesia", "Iran", "Iraq", "Ireland", "Israel", "Italy", "Jamaica", "Japan", "Jordan", "Kazakhstan", "Kenya", "Kiribati", "Kuwait", "Kyrgyzstan", "Laos", "Latvia", "Lebanon", "Lesotho", "Liberia", "Libya", "Liechtenstein", "Lithuania", "Luxembourg", "Madagascar", "Malawi", "Malaysia", "Maldives", "Mali", "Malta", "Marshall Islands", "Mauritania", "Mauritius", "Mexico", "Micronesia", "Moldova", "Monaco", "Mongolia", "Montenegro", "Morocco", "Mozambique", "Myanmar", "Namibia", "Nauru", "Nepal", "Netherlands", "New Zealand", "Nicaragua", "Niger", "Nigeria", "North Korea", "North Macedonia", "Norway", "Oman", "Pakistan", "Palau", "Palestine", "Panama", "Papua New Guinea", "Paraguay", "Peru", "Philippines", "Poland", "Portugal", "Qatar", "Romania", "Russia", "Rwanda", "Saint Kitts and Nevis", "Saint Lucia", "Saint Vincent and the Grenadines", "Samoa", "San Marino", "Sao Tome and Principe", "Saudi Arabia", "Senegal", "Serbia", "Seychelles", "Sierra Leone", "Singapore", "Slovakia", "Slovenia", "Solomon Islands", "Somalia", "South Africa", "South Korea", "South Sudan", "Spain", "Sri Lanka", "Sudan", "Suriname", "Sweden", "Switzerland", "Syria", "Tajikistan", "Tanzania", "Thailand", "Timor-Leste", "Togo", "Tonga", "Trinidad and Tobago", "Tunisia", "Turkey", "Turkmenistan", "Tuvalu", "Uganda", "Ukraine", "United Arab Emirates", "United Kingdom", "United States", "Uruguay", "Uzbekistan", "Vanuatu", "Vatican City", "Venezuela", "Vietnam", "Yemen", "Zambia", "Zimbabwe");
+
         itemDetails.setText("Select a baked good or ingredient to see details here.");
         reportArea.setText("Use the buttons above to generate reports, save, load, or reset.");
         allStockDetails.setText(AppData.getStore().getAllStockReport());
@@ -110,6 +111,8 @@ public class BakeryController {
             addIngName.clear();
             addIngDesc.clear();
             addIngCals.clear();
+            fillAllChoiceBoxes();
+            refreshAllStock();
             reportMessage("Ingredient '" + name + "' added successfully.");
         } else {
             reportMessage("An ingredient named '" + name + "' already exists. Try adding another ingredient.");
@@ -206,16 +209,33 @@ public class BakeryController {
 
     }
 
-    @FXML private void browseBakedGoodChanged() {
+    @FXML private void browseBakedGood() {
+        String name = browseBakedGood.getValue();
+        itemImage.setImage(null);
+        if (name == null) {
+            itemDetails.setText("Select a baked good to see its full details.");
+            return;
+        }
 
+        BakedGood bg = AppData.getStore().findBakedGood(name);
+        if (bg == null) return;
+
+        itemDetails.setText(bg.getFullDetails());
+        showImage(bg.getImageUrl());
     }
 
-    @FXML private void browseIngredientChanged() {
+    @FXML private void browseIngredient() {
+        String name = browseIngredient.getValue();
+        itemImage.setImage(null);
+        if (name == null) {
+            itemDetails.setText("Select a baked good to see its full details.");
+            return;
+        }
 
-    }
+        Ingredient ing = AppData.getStore().findIngredient(name);
+        if (ing == null) return;
 
-    @FXML private void viewAllStock() {
-
+        itemDetails.setText(ing.getFullDetails());
     }
 
     @FXML private void search() {
@@ -226,39 +246,19 @@ public class BakeryController {
 
     }
 
-    @FXML private void saveStore() {
-        try {
-            StoreFileManager.saveStore(AppData.getStore(), AppData.getSaveFile());
-            reportArea.setText("Store saved successfully to: " + AppData.getSaveFile());
-        } catch (Exception e) {
-            reportArea.setText("Save failed: " + e.getMessage());
+    private void showImage(String url) {
+        if (url == null || url.isBlank()) {
+            itemImage.setImage(null);
+            return;
         }
-    }
-
-    @FXML private void loadStore() {
         try {
-            AppData.setStore(StoreFileManager.loadStore(AppData.getSaveFile()));
-            fillAllChoiceBoxes();
-            refreshAllStock();
-            reportArea.setText("Store loaded successfully from: " + AppData.getSaveFile());
+            itemImage.setImage(new Image(url, true));
         } catch (Exception e) {
-            reportArea.setText("Load failed. Have you saved the store at least once?\nError: " + e.getMessage());
+            itemImage.setImage(null);
         }
-    }
-
-    @FXML private void resetSystem() {
-        AppData.resetStore();
-        lastSearchResults = new LinkedList<>();
-        searchResults.getItems().clear();
-        fillAllChoiceBoxes();
-        refreshAllStock();
-        itemDetails.setText("System reset. All data cleared.");
-        itemImage.setImage(null);
-        reportArea.setText("All data has been cleared.");
     }
 
     private void fillAllChoiceBoxes() {
-        fillChoiceBoxBg(choiceBgOrigin);
         fillChoiceBoxBg(choiceRecipeBg);
         fillChoiceBoxBg(choiceRemoveBg);
         fillChoiceBoxBg(choiceRemoveRecipeBg);
@@ -318,11 +318,47 @@ public class BakeryController {
         }
     }
 
+    @FXML private void viewAllStock() {
+        refreshAllStock();
+    }
+
     private void refreshAllStock() {
         allStockDetails.setText(AppData.getStore().getAllStockReport());
     }
 
     private void reportMessage(String message) {
         topMessage.setText(message);
+    }
+
+
+    @FXML private void saveStore() {
+        try {
+            StoreFileManager.saveStore(AppData.getStore(), AppData.getSaveFile());
+            reportArea.setText("Store saved successfully to: " + AppData.getSaveFile());
+        } catch (Exception e) {
+            reportArea.setText("Save failed: " + e.getMessage());
+        }
+    }
+
+    @FXML private void loadStore() {
+        try {
+            AppData.setStore(StoreFileManager.loadStore(AppData.getSaveFile()));
+            fillAllChoiceBoxes();
+            refreshAllStock();
+            reportArea.setText("Store loaded successfully from: " + AppData.getSaveFile());
+        } catch (Exception e) {
+            reportArea.setText("Load failed. Have you saved the store at least once?\nError: " + e.getMessage());
+        }
+    }
+
+    @FXML private void resetSystem() {
+        AppData.resetStore();
+        lastSearchResults = new LinkedList<>();
+        searchResults.getItems().clear();
+        fillAllChoiceBoxes();
+        refreshAllStock();
+        itemDetails.setText("System reset. All data cleared.");
+        itemImage.setImage(null);
+        reportArea.setText("All data has been cleared.");
     }
 }
