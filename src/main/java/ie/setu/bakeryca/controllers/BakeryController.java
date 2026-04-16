@@ -227,15 +227,34 @@ public class BakeryController {
     }
 
     @FXML private void saveStore() {
-
+        try {
+            StoreFileManager.saveStore(AppData.getStore(), AppData.getSaveFile());
+            reportArea.setText("Store saved successfully to: " + AppData.getSaveFile());
+        } catch (Exception e) {
+            reportArea.setText("Save failed: " + e.getMessage());
+        }
     }
 
     @FXML private void loadStore() {
-
+        try {
+            AppData.setStore(StoreFileManager.loadStore(AppData.getSaveFile()));
+            fillAllChoiceBoxes();
+            refreshAllStock();
+            reportArea.setText("Store loaded successfully from: " + AppData.getSaveFile());
+        } catch (Exception e) {
+            reportArea.setText("Load failed. Have you saved the store at least once?\nError: " + e.getMessage());
+        }
     }
 
     @FXML private void resetSystem() {
-
+        AppData.resetStore();
+        lastSearchResults = new LinkedList<>();
+        searchResults.getItems().clear();
+        fillAllChoiceBoxes();
+        refreshAllStock();
+        itemDetails.setText("System reset. All data cleared.");
+        itemImage.setImage(null);
+        reportArea.setText("All data has been cleared.");
     }
 
     private void fillAllChoiceBoxes() {
