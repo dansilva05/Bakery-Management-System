@@ -151,7 +151,7 @@
                                           <TextField fx:id="editBgDesc" prefHeight="25.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                           <Label text="Image URL" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                                           <TextField fx:id="editBgImg" prefHeight="25.0" prefWidth="250.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                                          <Button mnemonicParsing="false" onAction="#addBakedGood" prefHeight="30.0" prefWidth="140.0" text="Add Baked Good" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                                          <Button mnemonicParsing="false" onAction="#editBakedGood" prefHeight="30.0" prefWidth="140.0" text="Edit Baked Good" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
                                           <ChoiceBox fx:id="editChoiceBgOrigin" prefHeight="25.0" prefWidth="250.0" GridPane.columnIndex="3" />
                                        </children>
                                     </GridPane>
@@ -180,7 +180,7 @@
                                           <Label text="Name" />
                                           <TextField fx:id="editIngName" prefHeight="25.0" prefWidth="250.0" GridPane.columnIndex="1" />
                                           <Label text="Calories (kcal/100g)" GridPane.columnIndex="2" />
-                                          <TextField fx:id="EditIngCals" prefHeight="25.0" prefWidth="250.0" GridPane.columnIndex="3" />
+                                          <TextField fx:id="editIngCals" prefHeight="25.0" prefWidth="250.0" GridPane.columnIndex="3" />
                                           <Label text="Description" GridPane.rowIndex="1" />
                                           <TextField fx:id="editIngDesc" prefHeight="25.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                           <Button mnemonicParsing="false" onAction="#editIngredient" prefHeight="30.0" prefWidth="140.0" text="Edit Ingredient" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
@@ -297,7 +297,7 @@
                                                         <Label text="Baked Good" />
                                                         <ChoiceBox fx:id="choiceRemoveRecipeBg" onAction="#removeRecipeBgChanged" prefHeight="25.0" prefWidth="250.0" GridPane.columnIndex="1" />
                                                         <Label text="Recipe Entry" GridPane.columnIndex="2" />
-                                                        <ChoiceBox fx:id="choiceRemoveEntry" prefHeight="25.0" prefWidth="250.0" GridPane.columnIndex="3" />
+                                                        <ChoiceBox fx:id="choiceRemoveGuide" prefHeight="25.0" prefWidth="250.0" GridPane.columnIndex="3" />
                                                         <Button mnemonicParsing="false" onAction="#removeRecipeGuide" prefHeight="30.0" prefWidth="150.0" text="Remove Recipe Entry" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                                                     </children>
                                                 </GridPane>

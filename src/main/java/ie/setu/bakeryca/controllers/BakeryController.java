@@ -27,6 +27,22 @@ public class BakeryController {
     @FXML private ChoiceBox<String> choiceRecipeIng;
     @FXML private TextField addRecipeQty;
 
+    // Edit Baked Good section
+    @FXML private TextField editBgName;
+    @FXML private ChoiceBox<String> editChoiceBgOrigin;
+    @FXML private TextField editBgDesc;
+    @FXML private TextField editBgImg;
+
+    // Edit Ingredient section
+    @FXML private TextField editIngName;
+    @FXML private TextField editIngDesc;
+    @FXML private TextField editIngCals;
+
+    // Edit recipe guide section
+    @FXML private ChoiceBox<String> editChoiceRecipeBg;
+    @FXML private ChoiceBox<String> editChoiceRecipeIng;
+    @FXML private TextField editRecipeQty;
+
     // Remove section
     @FXML private ChoiceBox<String> choiceRemoveBg;
     @FXML private ChoiceBox<String> choiceRemoveIng;
@@ -62,6 +78,7 @@ public class BakeryController {
         reportArea.setText("Use the buttons above to generate reports, save, load, or reset.");
         allStockDetails.setText(AppData.getStore().getAllStockReport());
     }
+
 
     @FXML private void addBakedGood() {
         String name = addBgName.getText().trim();
@@ -148,6 +165,13 @@ public class BakeryController {
             reportMessage("Could not add recipe guide. Make sure the baked good and ingredient exist.");
         }
     }
+
+
+    @FXML private void editBakedGood() {}
+
+    @FXML private void editIngredient() {}
+
+    @FXML private void editRecipeGuide() {}
 
     @FXML private void removeBakedGood() {
         String name = choiceRemoveBg.getValue();
