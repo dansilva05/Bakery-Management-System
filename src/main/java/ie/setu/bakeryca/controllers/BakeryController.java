@@ -183,8 +183,23 @@ public class BakeryController {
         }
     }
 
-    @FXML private void removeRecipeEntry() {
+    @FXML private void removeRecipeGuide() {
+        String bgName = choiceRemoveRecipeBg.getValue();
+        int entryIndex = choiceRemoveEntry.getSelectionModel().getSelectedIndex();
 
+        if (bgName == null || entryIndex < 0) {
+            reportMessage("Please select a baked good and a recipe entry to remove.");
+            return;
+        }
+
+        boolean removed = AppData.getStore().removeRecipeGuide(bgName, entryIndex);
+        if (removed) {
+            fillAllChoiceBoxes();
+            refreshAllStock();
+            reportMessage("Recipe entry removed from '" + bgName + "'.");
+        } else {
+            reportMessage("Could not remove recipe entry. Please re-select and try again.");
+        }
     }
 
     @FXML private void removeRecipeBgChanged() {

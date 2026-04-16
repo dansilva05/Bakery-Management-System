@@ -202,7 +202,7 @@
                                                         <ChoiceBox fx:id="choiceRemoveRecipeBg" onAction="#removeRecipeBgChanged" prefHeight="25.0" prefWidth="250.0" GridPane.columnIndex="1" />
                                                         <Label text="Recipe Entry" GridPane.columnIndex="2" />
                                                         <ChoiceBox fx:id="choiceRemoveEntry" prefHeight="25.0" prefWidth="250.0" GridPane.columnIndex="3" />
-                                                        <Button mnemonicParsing="false" onAction="#removeRecipeEntry" prefHeight="30.0" prefWidth="150.0" text="Remove Recipe Entry" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                                                        <Button mnemonicParsing="false" onAction="#removeRecipeGuide" prefHeight="30.0" prefWidth="150.0" text="Remove Recipe Entry" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                                                     </children>
                                                 </GridPane>
                                             </content>
