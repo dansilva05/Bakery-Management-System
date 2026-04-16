@@ -7,14 +7,14 @@
     -fx-background-size: 100%;
 }
 
-.VBox {
-    -fx-alignment: center;
-    -fx-alignment-align: center;
+#topVBox {
+    -fx-background-color: black;
+    -fx-background-image: url("images/breads.jpg");
+    -fx-text-fill: white;
 }
 
 .textWelcome {
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.7), 12, 0.3, 0, 4);
-    -fx-padding: 0 0 15 0;
 }
 
 #enterButton {

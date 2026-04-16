@@ -7,6 +7,7 @@ import ie.setu.bakeryca.services.*;
 import ie.setu.bakeryca.models.*;
 import ie.setu.bakeryca.core.*;
 import ie.setu.bakeryca.*;
+import static java.lang.Float.*;
 
 public class BakeryController {
 
@@ -52,6 +53,8 @@ public class BakeryController {
         choiceBgOrigin.getItems().addAll("Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Antigua and Barbuda", "Argentina", "Armenia", "Australia", "Austria", "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bhutan", "Bolivia", "Bosnia and Herzegovina", "Botswana", "Brazil", "Brunei", "Bulgaria", "Burkina Faso", "Burundi", "Cabo Verde", "Cambodia", "Cameroon", "Canada", "Central African Republic", "Chad", "Chile", "China", "Colombia", "Comoros", "Congo", "Costa Rica", "Côte d'Ivoire", "Croatia", "Cuba", "Cyprus", "Czech Republic", "Democratic Republic of the Congo", "Denmark", "Djibouti", "Dominica", "Dominican Republic", "Ecuador", "Egypt", "El Salvador", "Equatorial Guinea", "Eritrea", "Estonia", "Eswatini", "Ethiopia", "Fiji", "Finland", "France", "Gabon", "Gambia", "Georgia", "Germany", "Ghana", "Greece", "Grenada", "Guatemala", "Guinea", "Guinea-Bissau", "Guyana", "Haiti", "Honduras", "Hungary", "Iceland", "India", "Indonesia", "Iran", "Iraq", "Ireland", "Israel", "Italy", "Jamaica", "Japan", "Jordan", "Kazakhstan", "Kenya", "Kiribati", "Kuwait", "Kyrgyzstan", "Laos", "Latvia", "Lebanon", "Lesotho", "Liberia", "Libya", "Liechtenstein", "Lithuania", "Luxembourg", "Madagascar", "Malawi", "Malaysia", "Maldives", "Mali", "Malta", "Marshall Islands", "Mauritania", "Mauritius", "Mexico", "Micronesia", "Moldova", "Monaco", "Mongolia", "Montenegro", "Morocco", "Mozambique", "Myanmar", "Namibia", "Nauru", "Nepal", "Netherlands", "New Zealand", "Nicaragua", "Niger", "Nigeria", "North Korea", "North Macedonia", "Norway", "Oman", "Pakistan", "Palau", "Palestine", "Panama", "Papua New Guinea", "Paraguay", "Peru", "Philippines", "Poland", "Portugal", "Qatar", "Romania", "Russia", "Rwanda", "Saint Kitts and Nevis", "Saint Lucia", "Saint Vincent and the Grenadines", "Samoa", "San Marino", "Sao Tome and Principe", "Saudi Arabia", "Senegal", "Serbia", "Seychelles", "Sierra Leone", "Singapore", "Slovakia", "Slovenia", "Solomon Islands", "Somalia", "South Africa", "South Korea", "South Sudan", "Spain", "Sri Lanka", "Sudan", "Suriname", "Sweden", "Switzerland", "Syria", "Tajikistan", "Tanzania", "Thailand", "Timor-Leste", "Togo", "Tonga", "Trinidad and Tobago", "Tunisia", "Turkey", "Turkmenistan", "Tuvalu", "Uganda", "Ukraine", "United Arab Emirates", "United Kingdom", "United States", "Uruguay", "Uzbekistan", "Vanuatu", "Vatican City", "Venezuela", "Vietnam", "Yemen", "Zambia", "Zimbabwe");
 
         reportMessage("Welcome!");
+        fillAllChoiceBoxes();
+        refreshAllStock();
         itemDetails.setText("Select a baked good or ingredient to see details here.");
         reportArea.setText("Use the buttons above to generate reports, save, load, or reset.");
         allStockDetails.setText(AppData.getStore().getAllStockReport());
@@ -65,7 +68,6 @@ public class BakeryController {
         String img = addBgImg.getText().trim();
 
         if (name.isEmpty() || origin.isEmpty() || desc.isEmpty()) {
-            reportArea.setText("Please fill in Name, Origin, and Description before adding a baked good.");
             reportMessage("Please fill all sections: Name, Place of Origin and Description");
             return;
         }
@@ -76,15 +78,42 @@ public class BakeryController {
             choiceBgOrigin.getSelectionModel().clearSelection();
             addBgDesc.clear();
             addBgImg.clear();
+            fillAllChoiceBoxes();
+            refreshAllStock();
             allStockDetails.setText(AppData.getStore().getAllStockReport());
-            reportArea.setText("Baked good '" + name + "' added successfully.");
+            reportMessage("Baked good '" + name + "' added successfully.");
         } else {
-            reportArea.setText("A baked good named '" + name + "' already exists. Choose a different name.");
+            reportMessage("A baked good named '" + name + "' already exists. Choose a different name.");
         }
     }
 
     @FXML private void addIngredient() {
+        String name = addIngName.getText().trim();
+        String calStr = addIngCals.getText().trim();
+        String desc = addIngDesc.getText().trim();
 
+        if (name.isEmpty() || calStr.isEmpty() || desc.isEmpty()) {
+            reportMessage("Please fill all sections: Name, Place of Origin and Description");
+            return;
+        }
+
+        float cals;
+        try {
+        cals = Float.parseFloat(calStr);
+        } catch (NumberFormatException e) {
+            reportMessage("calories must be a number (eg. 350.0");
+            return;
+        }
+
+        boolean added = AppData.getStore().addIngredient(new Ingredient(name, desc, cals));
+        if (added) {
+            addIngName.clear();
+            addIngDesc.clear();
+            addIngCals.clear();
+            reportMessage("Ingredient '" + name + "' added successfully.");
+        } else {
+            reportMessage("An ingredient named '" + name + "' already exists. Try adding another ingredient.");
+        }
     }
 
     @FXML private void addRecipeEntry() {
@@ -137,6 +166,71 @@ public class BakeryController {
 
     @FXML private void resetSystem() {
 
+    }
+
+    private void fillAllChoiceBoxes() {
+        fillChoiceBoxBg(choiceBgOrigin);
+        fillChoiceBoxBg(choiceRecipeBg);
+        fillChoiceBoxBg(choiceRemoveBg);
+        fillChoiceBoxBg(choiceRemoveRecipeBg);
+
+        fillChoiceBoxIng(choiceRecipeIng);
+        fillChoiceBoxIng(choiceRemoveIng);
+
+        fillRecipeEntryForRemove(choiceRemoveEntry);
+
+        browseBakedGood.getItems().clear();
+        browseIngredient.getItems().clear();
+        BakeryStore store = AppData.getStore();
+        for (int i = 0; i < store.getBakedGoods().size(); i++) {
+            browseBakedGood.getItems().add(store.getBakedGoods().get(i).getName());
+        }
+        for (int i = 0; i < store.getIngredients().size(); i++) {
+            browseIngredient.getItems().add(store.getIngredients().get(i).getName());
+        }
+    }
+
+    private void fillChoiceBoxBg(ChoiceBox<String> box) {
+        box.getItems().clear();
+        BakeryStore store = AppData.getStore();
+        for (int i = 0; i < store.getBakedGoods().size(); i++) {
+            box.getItems().add(store.getBakedGoods().get(i).getName());
+        }
+        if (!box.getItems().isEmpty()) {
+            box.getSelectionModel().selectFirst();
+        }
+    }
+
+    private void fillChoiceBoxIng(ChoiceBox<String> box) {
+        box.getItems().clear();
+        BakeryStore store = AppData.getStore();
+        for (int i = 0; i < store.getIngredients().size(); i++) {
+            box.getItems().add(store.getIngredients().get(i).getName());
+        }
+        if (!box.getItems().isEmpty()) {
+            box.getSelectionModel().selectFirst();
+        }
+    }
+
+    private void fillRecipeEntryForRemove(ChoiceBox<String> box) {
+        choiceRemoveEntry.getItems().clear();
+        String bgName = choiceRemoveRecipeBg.getValue();
+        if (bgName == null) return;
+
+        BakedGood bg = AppData.getStore().findBakedGood(bgName);
+        if (bg == null) return;
+
+        Recipe r = bg.getRecipe();
+        for (int i = 0; i < r.size(); i++) {
+            choiceRemoveEntry.getItems().add(r.getRecipe(i).toString());
+        }
+        if (!choiceRemoveEntry.getItems().isEmpty()) {
+            choiceRemoveEntry.getSelectionModel().selectFirst();
+        }
+    }
+
+    private void refreshAllStock() {
+        allStockDetails.setText(AppData.getStore().getAllStockReport());
     }
 
     private void reportMessage(String message) {
