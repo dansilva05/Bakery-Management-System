@@ -22,7 +22,7 @@ public class BakeryController {
     @FXML private TextField addIngDesc;
     @FXML private TextField addIngCals;
 
-    // Add Recipe Entry section
+    // Add recipe guide section
     @FXML private ChoiceBox<String> choiceRecipeBg;
     @FXML private ChoiceBox<String> choiceRecipeIng;
     @FXML private TextField addRecipeQty;
@@ -31,7 +31,7 @@ public class BakeryController {
     @FXML private ChoiceBox<String> choiceRemoveBg;
     @FXML private ChoiceBox<String> choiceRemoveIng;
     @FXML private ChoiceBox<String> choiceRemoveRecipeBg;
-    @FXML private ChoiceBox<String> choiceRemoveEntry;
+    @FXML private ChoiceBox<String> choiceRemoveGuide;
 
     // Search section
     @FXML private ComboBox<String> browseBakedGood;
@@ -120,7 +120,7 @@ public class BakeryController {
         }
     }
 
-    @FXML private void addRecipeEntry() {
+    @FXML private void addRecipeGuide() {
         String bgName = choiceRecipeBg.getValue();
         String ingName = choiceRecipeIng.getValue();
         String qtyStr = addRecipeQty.getText().trim();
@@ -145,7 +145,7 @@ public class BakeryController {
             refreshAllStock();
             reportMessage("Added " + qty + "g of '" + ingName + "' to '" + bgName + "'.");
         } else {
-            reportMessage("Could not add recipe entry. Make sure the baked good and ingredient exist.");
+            reportMessage("Could not add recipe guide. Make sure the baked good and ingredient exist.");
         }
     }
 
@@ -189,10 +189,10 @@ public class BakeryController {
 
     @FXML private void removeRecipeGuide() {
         String bgName = choiceRemoveRecipeBg.getValue();
-        int entryIndex = choiceRemoveEntry.getSelectionModel().getSelectedIndex();
+        int entryIndex = choiceRemoveGuide.getSelectionModel().getSelectedIndex();
 
         if (bgName == null || entryIndex < 0) {
-            reportMessage("Please select a baked good and a recipe entry to remove.");
+            reportMessage("Please select a baked good and a recipe guide to remove.");
             return;
         }
 
@@ -200,14 +200,14 @@ public class BakeryController {
         if (removed) {
             fillAllChoiceBoxes();
             refreshAllStock();
-            reportMessage("Recipe entry removed from '" + bgName + "'.");
+            reportMessage("Recipe guide removed from '" + bgName + "'.");
         } else {
-            reportMessage("Could not remove recipe entry. Please re-select and try again.");
+            reportMessage("Could not remove recipe guide. Please re-select and try again.");
         }
     }
 
     @FXML private void removeRecipeBgChanged() {
-        fillRecipeEntryForRemove(choiceRemoveEntry);
+        fillRecipeGuideForRemove(choiceRemoveGuide);
     }
 
     @FXML private void browseBakedGood() {
@@ -314,7 +314,7 @@ public class BakeryController {
         fillChoiceBoxIng(choiceRecipeIng);
         fillChoiceBoxIng(choiceRemoveIng);
 
-        fillRecipeEntryForRemove(choiceRemoveEntry);
+        fillRecipeGuideForRemove(choiceRemoveGuide);
 
         browseBakedGood.getItems().clear();
         browseIngredient.getItems().clear();
@@ -349,8 +349,8 @@ public class BakeryController {
         }
     }
 
-    private void fillRecipeEntryForRemove(ChoiceBox<String> box) {
-        choiceRemoveEntry.getItems().clear();
+    private void fillRecipeGuideForRemove(ChoiceBox<String> box) {
+        box.getItems().clear();
         String bgName = choiceRemoveRecipeBg.getValue();
         if (bgName == null) return;
 
@@ -359,10 +359,10 @@ public class BakeryController {
 
         Recipe r = bg.getRecipe();
         for (int i = 0; i < r.size(); i++) {
-            choiceRemoveEntry.getItems().add(r.getRecipe(i).toString());
+            box.getItems().add(r.getRecipe(i).toString());
         }
-        if (!choiceRemoveEntry.getItems().isEmpty()) {
-            choiceRemoveEntry.getSelectionModel().selectFirst();
+        if (!box.getItems().isEmpty()) {
+            box.getSelectionModel().selectFirst();
         }
     }
 

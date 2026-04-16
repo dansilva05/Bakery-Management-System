@@ -33,7 +33,7 @@
                             <content>
                                 <VBox alignment="TOP_CENTER" prefHeight="855.0" prefWidth="986.0">
                                     <children>
-                                        <TitledPane animated="false" contentDisplay="CENTER" text="Add Baked Good">
+                                        <TitledPane contentDisplay="CENTER" text="Add Baked Good">
                                             <content>
                                                 <GridPane>
                                                     <columnConstraints>
@@ -98,7 +98,7 @@
                                                 <Font name="System Bold" size="12.0" />
                                             </font>
                                         </TitledPane>
-                                        <TitledPane contentDisplay="CENTER" expanded="false" text="Add Recipe Entry" textAlignment="CENTER">
+                                        <TitledPane contentDisplay="CENTER" expanded="false" text="Add Recipe Guide" textAlignment="CENTER">
                                             <VBox.margin>
                                                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                             </VBox.margin>
@@ -121,7 +121,7 @@
                                                         <ChoiceBox fx:id="choiceRecipeIng" prefHeight="25.0" prefWidth="250.0" GridPane.columnIndex="3" />
                                                         <Label text="Quantity (g/ml)" GridPane.rowIndex="1" />
                                                         <TextField fx:id="addRecipeQty" prefHeight="25.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                                        <Button mnemonicParsing="false" onAction="#addRecipeEntry" prefHeight="30.0" prefWidth="140.0" text="Add to Recipe" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                                                        <Button mnemonicParsing="false" onAction="#addRecipeGuide" prefHeight="30.0" prefWidth="140.0" text="Add to Recipe" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                                                     </children>
                                                 </GridPane>
                                             </content>
@@ -129,6 +129,102 @@
                                                 <Font name="System Bold" size="12.0" />
                                             </font>
                                         </TitledPane>
+                              <TitledPane contentDisplay="CENTER" expanded="false" text="Edit Baked Good">
+                                 <content>
+                                    <GridPane>
+                                       <columnConstraints>
+                                          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" prefWidth="160.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" prefWidth="280.0" />
+                                          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" prefWidth="160.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" prefWidth="280.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints prefHeight="40.0" vgrow="SOMETIMES" />
+                                          <RowConstraints prefHeight="40.0" vgrow="SOMETIMES" />
+                                          <RowConstraints prefHeight="40.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <Label text="Name" />
+                                          <TextField fx:id="editBgName" prefHeight="25.0" prefWidth="250.0" GridPane.columnIndex="1" />
+                                          <Label text="Country of Origin" GridPane.columnIndex="2" />
+                                          <Label text="Description" GridPane.rowIndex="1" />
+                                          <TextField fx:id="editBgDesc" prefHeight="25.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                          <Label text="Image URL" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                                          <TextField fx:id="editBgImg" prefHeight="25.0" prefWidth="250.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                                          <Button mnemonicParsing="false" onAction="#addBakedGood" prefHeight="30.0" prefWidth="140.0" text="Add Baked Good" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                                          <ChoiceBox fx:id="editChoiceBgOrigin" prefHeight="25.0" prefWidth="250.0" GridPane.columnIndex="3" />
+                                       </children>
+                                    </GridPane>
+                                 </content>
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </VBox.margin>
+                              </TitledPane>
+                              <TitledPane contentDisplay="CENTER" expanded="false" text="Edit Ingredient" textAlignment="CENTER">
+                                 <content>
+                                    <GridPane>
+                                       <columnConstraints>
+                                          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" prefWidth="160.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" prefWidth="280.0" />
+                                          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" prefWidth="160.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" prefWidth="280.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints prefHeight="40.0" vgrow="SOMETIMES" />
+                                          <RowConstraints prefHeight="40.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <Label text="Name" />
+                                          <TextField fx:id="editIngName" prefHeight="25.0" prefWidth="250.0" GridPane.columnIndex="1" />
+                                          <Label text="Calories (kcal/100g)" GridPane.columnIndex="2" />
+                                          <TextField fx:id="EditIngCals" prefHeight="25.0" prefWidth="250.0" GridPane.columnIndex="3" />
+                                          <Label text="Description" GridPane.rowIndex="1" />
+                                          <TextField fx:id="editIngDesc" prefHeight="25.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                          <Button mnemonicParsing="false" onAction="#editIngredient" prefHeight="30.0" prefWidth="140.0" text="Edit Ingredient" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                                       </children>
+                                    </GridPane>
+                                 </content>
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </VBox.margin>
+                              </TitledPane>
+                              <TitledPane contentDisplay="CENTER" expanded="false" text="Edit Recipe Guide" textAlignment="CENTER">
+                                 <content>
+                                    <GridPane>
+                                       <columnConstraints>
+                                          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" prefWidth="160.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" prefWidth="280.0" />
+                                          <ColumnConstraints halignment="CENTER" hgrow="SOMETIMES" prefWidth="160.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" prefWidth="280.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints prefHeight="40.0" vgrow="SOMETIMES" />
+                                          <RowConstraints prefHeight="40.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <Label text="Baked Good" />
+                                          <ChoiceBox fx:id="editChoiceRecipeBg" prefHeight="25.0" prefWidth="250.0" GridPane.columnIndex="1" />
+                                          <Label text="Ingredient" GridPane.columnIndex="2" />
+                                          <ChoiceBox fx:id="editChoiceRecipeIng" prefHeight="25.0" prefWidth="250.0" GridPane.columnIndex="3" />
+                                          <Label text="Quantity (g/ml)" GridPane.rowIndex="1" />
+                                          <TextField fx:id="editRecipeQty" prefHeight="25.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                          <Button mnemonicParsing="false" onAction="#editRecipeGuide" prefHeight="30.0" prefWidth="140.0" text="Edit Recipe" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                                       </children>
+                                    </GridPane>
+                                 </content>
+                                 <font>
+                                    <Font name="System Bold" size="12.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </VBox.margin>
+                              </TitledPane>
                                         <TitledPane expanded="false" text="Remove Baked Good">
                                             <VBox.margin>
                                                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -181,7 +277,7 @@
                                                 <Font name="System Bold" size="12.0" />
                                             </font>
                                         </TitledPane>
-                                        <TitledPane expanded="false" text="Remove Recipe Entry">
+                                        <TitledPane expanded="false" text="Remove Recipe Guide">
                                             <VBox.margin>
                                                 <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                             </VBox.margin>
