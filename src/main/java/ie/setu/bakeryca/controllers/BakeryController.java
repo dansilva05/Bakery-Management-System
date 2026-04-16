@@ -165,7 +165,22 @@ public class BakeryController {
     }
 
     @FXML private void removeIngredient() {
+        String name = choiceRemoveIng.getValue();
+        if (name == null) {
+            reportMessage("Please select an ingredient to remove.");
+            return;
+        }
 
+        boolean removed = AppData.getStore().removeIngredient(name);
+        if (removed) {
+            fillAllChoiceBoxes();
+            refreshAllStock();
+            itemDetails.setText("Ingredient removed. Select another to view details.");
+            itemImage.setImage(null);
+            reportMessage("Ingredient '" + name + "' removed (and cleared from any recipes using it).");
+        } else {
+            reportMessage("Could not remove ingredient. Please re-select and try again.");
+        }
     }
 
     @FXML private void removeRecipeEntry() {
