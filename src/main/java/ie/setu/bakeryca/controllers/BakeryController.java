@@ -126,9 +126,9 @@ public class BakeryController {
             return;
         }
 
-        double qty;
+        float qty;
         try {
-            qty = Double.parseDouble(qtyStr);
+            qty = Float.parseFloat(qtyStr);
         } catch (NumberFormatException e) {
             reportMessage("Quantity must be a number (e.g. 50.0).");
             return;
@@ -146,7 +146,22 @@ public class BakeryController {
     }
 
     @FXML private void removeBakedGood() {
+        String name = choiceRemoveBg.getValue();
+        if (name == null) {
+            reportMessage("Please select a baked good to remove.");
+            return;
+        }
 
+        boolean removed = AppData.getStore().removeBakedGood(name);
+        if (removed) {
+            fillAllChoiceBoxes();
+            refreshAllStock();
+            itemDetails.setText("Baked good removed. Select another to view details.");
+            itemImage.setImage(null);
+            reportMessage("Baked good '" + name + "' removed.");
+        } else {
+            reportMessage("Could not remove baked good. Please re-select and try again.");
+        }
     }
 
     @FXML private void removeIngredient() {
