@@ -207,7 +207,7 @@ public class BakeryController {
     }
 
     @FXML private void removeRecipeBgChanged() {
-
+        fillRecipeEntryForRemove(choiceRemoveEntry);
     }
 
     @FXML private void browseBakedGood() {
