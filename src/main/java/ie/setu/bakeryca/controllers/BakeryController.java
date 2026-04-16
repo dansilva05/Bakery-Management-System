@@ -117,7 +117,32 @@ public class BakeryController {
     }
 
     @FXML private void addRecipeEntry() {
+        String bgName = choiceRecipeBg.getValue();
+        String ingName = choiceRecipeIng.getValue();
+        String qtyStr = addRecipeQty.getText().trim();
 
+        if (bgName == null || ingName == null || qtyStr.isEmpty()) {
+            reportMessage("Please select a baked good, an ingredient, and enter a quantity.");
+            return;
+        }
+
+        double qty;
+        try {
+            qty = Double.parseDouble(qtyStr);
+        } catch (NumberFormatException e) {
+            reportMessage("Quantity must be a number (e.g. 50.0).");
+            return;
+        }
+
+        boolean added = AppData.getStore().addRecipe(bgName, ingName, qty);
+        if (added) {
+            addRecipeQty.clear();
+            fillAllChoiceBoxes();
+            refreshAllStock();
+            reportMessage("Added " + qty + "g of '" + ingName + "' to '" + bgName + "'.");
+        } else {
+            reportMessage("Could not add recipe entry. Make sure the baked good and ingredient exist.");
+        }
     }
 
     @FXML private void removeBakedGood() {
