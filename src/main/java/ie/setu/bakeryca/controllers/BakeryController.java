@@ -47,8 +47,8 @@ public class BakeryController {
     @FXML private TextArea reportArea;
 
     private LinkedList<SearchResult> lastSearchResults = new LinkedList<>();
-    @FXML
-    public void initialize() {
+
+    @FXML public void initialize() {
         reportMessage("Welcome!");
         fillAllChoiceBoxes();
         refreshAllStock();
@@ -61,8 +61,7 @@ public class BakeryController {
         allStockDetails.setText(AppData.getStore().getAllStockReport());
     }
 
-    @FXML
-    private void addBakedGood() {
+    @FXML private void addBakedGood() {
         String name = addBgName.getText().trim();
         String origin = choiceBgOrigin.getValue();
         String desc = addBgDesc.getText().trim();
@@ -239,7 +238,24 @@ public class BakeryController {
     }
 
     @FXML private void search() {
+        String term = searchBar.getText().trim();
+        if (term.isEmpty()) {
+            reportMessage("Please type something in the search box before searching.");
+            return;
+        }
 
+        lastSearchResults = AppData.getStore().search(term);
+        searchResults.getItems().clear();
+
+        if (lastSearchResults.isEmpty()) {
+            itemDetails.setText("No results found matching '" + term + "'.");
+            itemImage.setImage(null);
+        } else {
+            for (int i = 0; i < lastSearchResults.size(); i++) {
+                searchResults.getItems().add(lastSearchResults.get(i).toString());
+            }
+            itemDetails.setText("Click a result in the list to see full details.");
+        }
     }
 
     @FXML private void caloriesReport() {
