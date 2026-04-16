@@ -7,7 +7,7 @@ import ie.setu.bakeryca.services.*;
 import ie.setu.bakeryca.models.*;
 import ie.setu.bakeryca.core.*;
 import ie.setu.bakeryca.*;
-import java.lang.Float.*;
+import static java.lang.Float.*;
 
 public class BakeryController {
 
@@ -100,7 +100,7 @@ public class BakeryController {
 
         float cals;
         try {
-        cals = Float.parseFloat(calStr);
+        cals = parseFloat(calStr);
         } catch (NumberFormatException e) {
             reportMessage("calories must be a number (eg. 350.0");
             return;
@@ -131,7 +131,7 @@ public class BakeryController {
 
         float qty;
         try {
-            qty = Float.parseFloat(qtyStr);
+            qty = parseFloat(qtyStr);
         } catch (NumberFormatException e) {
             reportMessage("Quantity must be a number (e.g. 50.0).");
             return;
@@ -228,14 +228,14 @@ public class BakeryController {
         String name = browseIngredient.getValue();
         itemImage.setImage(null);
         if (name == null) {
-            itemDetails.setText("Select a baked good to see its full details.");
+            itemDetails.setText("Select an ingredient to see its full details.");
             return;
         }
 
         Ingredient ing = AppData.getStore().findIngredient(name);
         if (ing == null) return;
 
-        itemDetails.setText(ing.getFullDetails());
+        itemDetails.setText(buildIngredientDetailsText(ing));
     }
 
     @FXML private void search() {
@@ -316,6 +316,22 @@ public class BakeryController {
         if (!choiceRemoveEntry.getItems().isEmpty()) {
             choiceRemoveEntry.getSelectionModel().selectFirst();
         }
+    }
+
+    private String buildIngredientDetailsText(Ingredient ing) {
+        String usedIn;
+        LinkedList<BakedGood> users = AppData.getStore().findBakedGoodsWithIngredient(ing);
+        if (users.isEmpty()) {
+            usedIn = "  (not used in any baked good yet)";
+        } else {
+            String list = "";
+            for (int i = 0; i < users.size(); i++) {
+                list += "  - " + users.get(i).toString() + "\n";
+            }
+            usedIn = list.trim();
+        }
+        return ing.getFullDetails()
+                + "\n\n--- Used in Baked Goods ---\n" + usedIn;
     }
 
     @FXML private void viewAllStock() {
