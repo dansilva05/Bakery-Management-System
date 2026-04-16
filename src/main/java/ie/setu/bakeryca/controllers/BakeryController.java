@@ -292,9 +292,7 @@ public class BakeryController {
         }
     }
 
-    @FXML private void caloriesReport() {
-
-    }
+    @FXML private void caloriesReport() { reportArea.setText(AppData.getStore().getCaloriesReport()); }
 
     private void showImage(String url) {
         if (url == null || url.isBlank()) {
