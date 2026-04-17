@@ -50,6 +50,22 @@ public class BakeryStore implements Serializable {
         return true;
     }
 
+    // edits a baked good's field, when field is filled. Null or empty values, keep old value
+    public boolean editBakedGood(String currentName, String newName, String origin, String desc, String img) {
+        BakedGood bg = findBakedGood(currentName);
+        if (bg == null) return false;
+
+        // if new name is different and not empty, it checks if name is not already taken
+        if (newName != null && !newName.isEmpty() && !newName.equalsIgnoreCase(currentName)) {
+            if (findBakedGood(newName) != null) return false; // new name clashes with another
+            bg.setName(newName);
+        }
+        if (origin != null && !origin.isEmpty()) bg.setPlaceOfOrigin(origin);
+        if (desc != null && !desc.isEmpty()) bg.setDescription(desc);
+        if (img != null && !img.isEmpty()) bg.setImageUrl(img);
+        return true;
+    }
+
     // finds a baked good by its name, returns null if not found
     public BakedGood findBakedGood(String name) {
         for (int i = 0; i < bakedGoods.size(); i++) {

@@ -24,6 +24,11 @@ public class BakedGood implements Serializable {
     public String getImageUrl() { return imageUrl; }
     public Recipe getRecipe() { return recipe; }
 
+    public void setName(String name) { this.name = name; }
+    public void setPlaceOfOrigin(String placeOfOrigin) { this.placeOfOrigin = placeOfOrigin; }
+    public void setDescription(String description) { this.description = description; }
+    public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
+
     // adds an ingredient + quantity to the baked good's recipe
     public void addRecipeEntry(RecipeGuide entry) {
         recipe.addEntry(entry);

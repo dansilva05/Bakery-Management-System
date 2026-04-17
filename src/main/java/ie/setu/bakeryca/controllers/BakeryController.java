@@ -170,7 +170,31 @@ public class BakeryController {
     }
 
 
-    @FXML private void editBakedGood() {}
+    @FXML private void editBakedGood() {
+        String currentName = choiceEditBg.getValue();
+        if (currentName == null) {
+            reportMessage("Please choose a baked good to edit.");
+            return;
+        }
+
+        String newName = editBgName.getText().trim();
+        String origin = editChoiceBgOrigin.getValue();
+        String desc = editBgDesc.getText().trim();
+        String img = editBgImg.getText().trim();
+
+        boolean edited = AppData.getStore().editBakedGood(currentName, newName, origin, desc, img);
+        if (edited) {
+            editBgName.clear();
+            editChoiceBgOrigin.getSelectionModel().clearSelection();
+            editBgDesc.clear();
+            editBgImg.clear();
+            fillAllChoiceBoxes();
+            refreshAllStock();
+            reportMessage("Baked good '" + currentName + "' edited successfully.");
+        } else {
+            reportMessage("Could not edit baked good. The new name might already be taken.");
+        }
+    }
 
     @FXML private void editIngredient() {}
 
