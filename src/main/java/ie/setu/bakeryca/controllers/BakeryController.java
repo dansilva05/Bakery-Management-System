@@ -28,17 +28,20 @@ public class BakeryController {
     @FXML private TextField addRecipeQty;
 
     // Edit Baked Good section
+    @FXML private ChoiceBox<String> choiceEditBg;
     @FXML private TextField editBgName;
     @FXML private ChoiceBox<String> editChoiceBgOrigin;
     @FXML private TextField editBgDesc;
     @FXML private TextField editBgImg;
 
     // Edit Ingredient section
+    @FXML private ChoiceBox<String> choiceEditIng;
     @FXML private TextField editIngName;
     @FXML private TextField editIngDesc;
     @FXML private TextField editIngCals;
 
     // Edit recipe guide section
+    @FXML private ChoiceBox<String> choiceEditRecipe;
     @FXML private ChoiceBox<String> editChoiceRecipeBg;
     @FXML private ChoiceBox<String> editChoiceRecipeIng;
     @FXML private TextField editRecipeQty;
@@ -334,6 +337,10 @@ public class BakeryController {
         fillChoiceBoxBg(choiceRecipeBg);
         fillChoiceBoxBg(choiceRemoveBg);
         fillChoiceBoxBg(choiceRemoveRecipeBg);
+
+        fillChoiceBoxBg(choiceEditBg);
+        fillChoiceBoxIng(choiceEditIng);
+        fillChoiceBoxBg(choiceEditRecipe);
 
         fillChoiceBoxIng(choiceRecipeIng);
         fillChoiceBoxIng(choiceRemoveIng);

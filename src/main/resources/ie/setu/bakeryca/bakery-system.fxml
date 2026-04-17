@@ -139,20 +139,23 @@
                                           <ColumnConstraints hgrow="SOMETIMES" prefWidth="280.0" />
                                        </columnConstraints>
                                        <rowConstraints>
+                                          <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
                                           <RowConstraints prefHeight="40.0" vgrow="SOMETIMES" />
                                           <RowConstraints prefHeight="40.0" vgrow="SOMETIMES" />
                                           <RowConstraints prefHeight="40.0" vgrow="SOMETIMES" />
                                        </rowConstraints>
                                        <children>
-                                          <Label text="Name" />
-                                          <TextField fx:id="editBgName" prefHeight="25.0" prefWidth="250.0" GridPane.columnIndex="1" />
-                                          <Label text="Country of Origin" GridPane.columnIndex="2" />
-                                          <Label text="Description" GridPane.rowIndex="1" />
-                                          <TextField fx:id="editBgDesc" prefHeight="25.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                          <Label text="Image URL" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                                          <TextField fx:id="editBgImg" prefHeight="25.0" prefWidth="250.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                                          <Button mnemonicParsing="false" onAction="#editBakedGood" prefHeight="30.0" prefWidth="140.0" text="Edit Baked Good" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-                                          <ChoiceBox fx:id="editChoiceBgOrigin" prefHeight="25.0" prefWidth="250.0" GridPane.columnIndex="3" />
+                                          <Label text="Name" GridPane.rowIndex="1" />
+                                          <TextField fx:id="editBgName" prefHeight="25.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                          <Label text="Country of Origin" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                                          <Label text="Description" GridPane.rowIndex="2" />
+                                          <TextField fx:id="editBgDesc" prefHeight="25.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                          <Label text="Image URL" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                                          <TextField fx:id="editBgImg" prefHeight="25.0" prefWidth="250.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                                          <Button mnemonicParsing="false" onAction="#editBakedGood" prefHeight="30.0" prefWidth="140.0" text="Edit Baked Good" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+                                          <ChoiceBox fx:id="editChoiceBgOrigin" prefHeight="25.0" prefWidth="250.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                                          <Label text="Choose Baked Good" />
+                                          <ChoiceBox fx:id="choiceEditBg" prefHeight="25.0" prefWidth="250.0" GridPane.columnIndex="1" />
                                        </children>
                                     </GridPane>
                                  </content>
@@ -173,17 +176,20 @@
                                           <ColumnConstraints hgrow="SOMETIMES" prefWidth="280.0" />
                                        </columnConstraints>
                                        <rowConstraints>
+                                          <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
                                           <RowConstraints prefHeight="40.0" vgrow="SOMETIMES" />
                                           <RowConstraints prefHeight="40.0" vgrow="SOMETIMES" />
                                        </rowConstraints>
                                        <children>
-                                          <Label text="Name" />
-                                          <TextField fx:id="editIngName" prefHeight="25.0" prefWidth="250.0" GridPane.columnIndex="1" />
-                                          <Label text="Calories (kcal/100g)" GridPane.columnIndex="2" />
-                                          <TextField fx:id="editIngCals" prefHeight="25.0" prefWidth="250.0" GridPane.columnIndex="3" />
-                                          <Label text="Description" GridPane.rowIndex="1" />
-                                          <TextField fx:id="editIngDesc" prefHeight="25.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                          <Button mnemonicParsing="false" onAction="#editIngredient" prefHeight="30.0" prefWidth="140.0" text="Edit Ingredient" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                                          <Label text="Name" GridPane.rowIndex="1" />
+                                          <TextField fx:id="editIngName" prefHeight="25.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                          <Label text="Calories (kcal/100g)" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                                          <TextField fx:id="editIngCals" prefHeight="25.0" prefWidth="250.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                                          <Label text="Description" GridPane.rowIndex="2" />
+                                          <TextField fx:id="editIngDesc" prefHeight="25.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                          <Button mnemonicParsing="false" onAction="#editIngredient" prefHeight="30.0" prefWidth="140.0" text="Edit Ingredient" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                                          <Label text="Choose Ingredient" />
+                                          <ChoiceBox fx:id="choiceEditIng" prefHeight="25.0" prefWidth="250.0" GridPane.columnIndex="1" />
                                        </children>
                                     </GridPane>
                                  </content>
@@ -194,7 +200,7 @@
                                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                  </VBox.margin>
                               </TitledPane>
-                              <TitledPane contentDisplay="CENTER" expanded="false" text="Edit Recipe Guide" textAlignment="CENTER">
+                              <TitledPane contentDisplay="CENTER" text="Edit Recipe Guide" textAlignment="CENTER">
                                  <content>
                                     <GridPane>
                                        <columnConstraints>
@@ -204,17 +210,20 @@
                                           <ColumnConstraints hgrow="SOMETIMES" prefWidth="280.0" />
                                        </columnConstraints>
                                        <rowConstraints>
+                                          <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
                                           <RowConstraints prefHeight="40.0" vgrow="SOMETIMES" />
                                           <RowConstraints prefHeight="40.0" vgrow="SOMETIMES" />
                                        </rowConstraints>
                                        <children>
-                                          <Label text="Baked Good" />
-                                          <ChoiceBox fx:id="editChoiceRecipeBg" prefHeight="25.0" prefWidth="250.0" GridPane.columnIndex="1" />
-                                          <Label text="Ingredient" GridPane.columnIndex="2" />
-                                          <ChoiceBox fx:id="editChoiceRecipeIng" prefHeight="25.0" prefWidth="250.0" GridPane.columnIndex="3" />
-                                          <Label text="Quantity (g/ml)" GridPane.rowIndex="1" />
-                                          <TextField fx:id="editRecipeQty" prefHeight="25.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                          <Button mnemonicParsing="false" onAction="#editRecipeGuide" prefHeight="30.0" prefWidth="140.0" text="Edit Recipe" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                                          <Label text="Baked Good" GridPane.rowIndex="1" />
+                                          <ChoiceBox fx:id="editChoiceRecipeBg" prefHeight="25.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                          <Label text="Ingredient" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                                          <ChoiceBox fx:id="editChoiceRecipeIng" prefHeight="25.0" prefWidth="250.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                                          <Label text="Quantity (g/ml)" GridPane.rowIndex="2" />
+                                          <TextField fx:id="editRecipeQty" prefHeight="25.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                          <Button mnemonicParsing="false" onAction="#editRecipeGuide" prefHeight="30.0" prefWidth="140.0" text="Edit Recipe" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                                          <Label prefHeight="40.0" prefWidth="112.0" text="Choose Baked Good's Recipe" textAlignment="CENTER" wrapText="true" />
+                                          <ChoiceBox fx:id="choiceEditRecipe" prefHeight="25.0" prefWidth="250.0" GridPane.columnIndex="1" />
                                        </children>
                                     </GridPane>
                                  </content>
