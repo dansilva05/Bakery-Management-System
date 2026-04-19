@@ -200,7 +200,7 @@
                                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                  </VBox.margin>
                               </TitledPane>
-                              <TitledPane contentDisplay="CENTER" text="Edit Recipe Guide" textAlignment="CENTER">
+                              <TitledPane contentDisplay="CENTER" expanded="false" text="Edit Recipe Guide" textAlignment="CENTER">
                                  <content>
                                     <GridPane>
                                        <columnConstraints>

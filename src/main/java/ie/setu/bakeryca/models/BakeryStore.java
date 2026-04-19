@@ -66,6 +66,26 @@ public class BakeryStore implements Serializable {
         return true;
     }
 
+    // edits a baked good's field, when field is filled. Null or empty values = keep old value
+    public boolean editIngredient(String currentName, String newName, String desc, String calsStr) {
+        Ingredient ing = findIngredient(currentName);
+        if (ing == null) return false;
+
+        if (newName != null && !newName.isEmpty() && !newName.equalsIgnoreCase(currentName)) {
+            if (findIngredient(newName) != null) return false;
+            ing.setName(newName);
+        }
+        if (desc != null && !desc.isEmpty()) ing.setDescription(desc);
+        if (calsStr != null && !calsStr.isEmpty()) {
+            try {
+                ing.setCaloriesPer100g(Float.parseFloat(calsStr));
+            } catch (NumberFormatException e) {
+                return false;  // user didn't type a number
+            }
+        }
+        return true;
+    }
+
     // finds a baked good by its name, returns null if not found
     public BakedGood findBakedGood(String name) {
         for (int i = 0; i < bakedGoods.size(); i++) {

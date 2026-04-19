@@ -18,6 +18,10 @@ public class Ingredient implements Serializable {
     public String getDescription() { return description; }
     public double getCaloriesPer100g() { return caloriesPer100g; }
 
+    public void setName(String name) { this.name = name; }
+    public void setDescription(String description) { this.description = description; }
+    public void setCaloriesPer100g(double caloriesPer100g) { this.caloriesPer100g = caloriesPer100g; }
+
     // checks if the searched term matches with anything in the ingredient
     public boolean matchesSearch(String term) {
         String lower = term.toLowerCase();
