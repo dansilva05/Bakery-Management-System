@@ -15,6 +15,8 @@ public class RecipeGuide implements Serializable {
     public Ingredient getIngredient() { return ingredient; }
     public double getQuantity() { return quantity; }
 
+    public void setQuantity(double quantity) { this.quantity = quantity; }
+
     @Override
     public String toString() {
         return ingredient.getName() + " - " + quantity + "g";

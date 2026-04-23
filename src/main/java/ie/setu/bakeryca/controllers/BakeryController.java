@@ -76,26 +76,29 @@ public class BakeryController {
 
         // GPT wrote all the countries name as Strings
         choiceBgOrigin.getItems().addAll("Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Antigua and Barbuda", "Argentina", "Armenia", "Australia", "Austria", "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bhutan", "Bolivia", "Bosnia and Herzegovina", "Botswana", "Brazil", "Brunei", "Bulgaria", "Burkina Faso", "Burundi", "Cabo Verde", "Cambodia", "Cameroon", "Canada", "Central African Republic", "Chad", "Chile", "China", "Colombia", "Comoros", "Congo", "Costa Rica", "Côte d'Ivoire", "Croatia", "Cuba", "Cyprus", "Czech Republic", "Democratic Republic of the Congo", "Denmark", "Djibouti", "Dominica", "Dominican Republic", "Ecuador", "Egypt", "El Salvador", "Equatorial Guinea", "Eritrea", "Estonia", "Eswatini", "Ethiopia", "Fiji", "Finland", "France", "Gabon", "Gambia", "Georgia", "Germany", "Ghana", "Greece", "Grenada", "Guatemala", "Guinea", "Guinea-Bissau", "Guyana", "Haiti", "Honduras", "Hungary", "Iceland", "India", "Indonesia", "Iran", "Iraq", "Ireland", "Israel", "Italy", "Jamaica", "Japan", "Jordan", "Kazakhstan", "Kenya", "Kiribati", "Kuwait", "Kyrgyzstan", "Laos", "Latvia", "Lebanon", "Lesotho", "Liberia", "Libya", "Liechtenstein", "Lithuania", "Luxembourg", "Madagascar", "Malawi", "Malaysia", "Maldives", "Mali", "Malta", "Marshall Islands", "Mauritania", "Mauritius", "Mexico", "Micronesia", "Moldova", "Monaco", "Mongolia", "Montenegro", "Morocco", "Mozambique", "Myanmar", "Namibia", "Nauru", "Nepal", "Netherlands", "New Zealand", "Nicaragua", "Niger", "Nigeria", "North Korea", "North Macedonia", "Norway", "Oman", "Pakistan", "Palau", "Palestine", "Panama", "Papua New Guinea", "Paraguay", "Peru", "Philippines", "Poland", "Portugal", "Qatar", "Romania", "Russia", "Rwanda", "Saint Kitts and Nevis", "Saint Lucia", "Saint Vincent and the Grenadines", "Samoa", "San Marino", "Sao Tome and Principe", "Saudi Arabia", "Senegal", "Serbia", "Seychelles", "Sierra Leone", "Singapore", "Slovakia", "Slovenia", "Solomon Islands", "Somalia", "South Africa", "South Korea", "South Sudan", "Spain", "Sri Lanka", "Sudan", "Suriname", "Sweden", "Switzerland", "Syria", "Tajikistan", "Tanzania", "Thailand", "Timor-Leste", "Togo", "Tonga", "Trinidad and Tobago", "Tunisia", "Turkey", "Turkmenistan", "Tuvalu", "Uganda", "Ukraine", "United Arab Emirates", "United Kingdom", "United States", "Uruguay", "Uzbekistan", "Vanuatu", "Vatican City", "Venezuela", "Vietnam", "Yemen", "Zambia", "Zimbabwe");
+        editChoiceBgOrigin.getItems().addAll("Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Antigua and Barbuda", "Argentina", "Armenia", "Australia", "Austria", "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bhutan", "Bolivia", "Bosnia and Herzegovina", "Botswana", "Brazil", "Brunei", "Bulgaria", "Burkina Faso", "Burundi", "Cabo Verde", "Cambodia", "Cameroon", "Canada", "Central African Republic", "Chad", "Chile", "China", "Colombia", "Comoros", "Congo", "Costa Rica", "Côte d'Ivoire", "Croatia", "Cuba", "Cyprus", "Czech Republic", "Democratic Republic of the Congo", "Denmark", "Djibouti", "Dominica", "Dominican Republic", "Ecuador", "Egypt", "El Salvador", "Equatorial Guinea", "Eritrea", "Estonia", "Eswatini", "Ethiopia", "Fiji", "Finland", "France", "Gabon", "Gambia", "Georgia", "Germany", "Ghana", "Greece", "Grenada", "Guatemala", "Guinea", "Guinea-Bissau", "Guyana", "Haiti", "Honduras", "Hungary", "Iceland", "India", "Indonesia", "Iran", "Iraq", "Ireland", "Israel", "Italy", "Jamaica", "Japan", "Jordan", "Kazakhstan", "Kenya", "Kiribati", "Kuwait", "Kyrgyzstan", "Laos", "Latvia", "Lebanon", "Lesotho", "Liberia", "Libya", "Liechtenstein", "Lithuania", "Luxembourg", "Madagascar", "Malawi", "Malaysia", "Maldives", "Mali", "Malta", "Marshall Islands", "Mauritania", "Mauritius", "Mexico", "Micronesia", "Moldova", "Monaco", "Mongolia", "Montenegro", "Morocco", "Mozambique", "Myanmar", "Namibia", "Nauru", "Nepal", "Netherlands", "New Zealand", "Nicaragua", "Niger", "Nigeria", "North Korea", "North Macedonia", "Norway", "Oman", "Pakistan", "Palau", "Palestine", "Panama", "Papua New Guinea", "Paraguay", "Peru", "Philippines", "Poland", "Portugal", "Qatar", "Romania", "Russia", "Rwanda", "Saint Kitts and Nevis", "Saint Lucia", "Saint Vincent and the Grenadines", "Samoa", "San Marino", "Sao Tome and Principe", "Saudi Arabia", "Senegal", "Serbia", "Seychelles", "Sierra Leone", "Singapore", "Slovakia", "Slovenia", "Solomon Islands", "Somalia", "South Africa", "South Korea", "South Sudan", "Spain", "Sri Lanka", "Sudan", "Suriname", "Sweden", "Switzerland", "Syria", "Tajikistan", "Tanzania", "Thailand", "Timor-Leste", "Togo", "Tonga", "Trinidad and Tobago", "Tunisia", "Turkey", "Turkmenistan", "Tuvalu", "Uganda", "Ukraine", "United Arab Emirates", "United Kingdom", "United States", "Uruguay", "Uzbekistan", "Vanuatu", "Vatican City", "Venezuela", "Vietnam", "Yemen", "Zambia", "Zimbabwe");
 
         itemDetails.setText("Select a baked good or ingredient to see details here.");
         reportArea.setText("Use the buttons above to generate reports, save, load, or reset.");
         allStockDetails.setText(AppData.getStore().getAllStockReport());
     }
 
-
+    // add baked good
     @FXML private void addBakedGood() {
         String name = addBgName.getText().trim();
         String origin = choiceBgOrigin.getValue();
         String desc = addBgDesc.getText().trim();
         String img = addBgImg.getText().trim();
 
+        // checks if all fields were filled
         if (name.isEmpty() || origin.isEmpty() || desc.isEmpty()) {
             reportMessage("Please fill all sections: Name, Place of Origin and Description");
             return;
         }
 
+        // tries to add the baked good
         boolean added = AppData.getStore().addBakedGood(new BakedGood(name, origin, desc, img));
-        if (added) {
+        if (added) { // it worked so all fields are cleared for new baked goods to be added
             addBgName.clear();
             choiceBgOrigin.getSelectionModel().clearSelection();
             addBgDesc.clear();
@@ -109,16 +112,19 @@ public class BakeryController {
         }
     }
 
+    // add ingredient
     @FXML private void addIngredient() {
         String name = addIngName.getText().trim();
         String calStr = addIngCals.getText().trim();
         String desc = addIngDesc.getText().trim();
 
+        // checks if all fields were filled
         if (name.isEmpty() || calStr.isEmpty() || desc.isEmpty()) {
             reportMessage("Please fill all sections: Name, Place of Origin and Description");
             return;
         }
 
+        // tries to parse number required fields
         float cals;
         try {
         cals = parseFloat(calStr);
@@ -127,8 +133,9 @@ public class BakeryController {
             return;
         }
 
+        // tries to add ingredient
         boolean added = AppData.getStore().addIngredient(new Ingredient(name, desc, cals));
-        if (added) {
+        if (added) { // it worked so all fields are cleared for new baked goods to be added
             addIngName.clear();
             addIngDesc.clear();
             addIngCals.clear();
@@ -140,16 +147,19 @@ public class BakeryController {
         }
     }
 
+    // add recipe guide
     @FXML private void addRecipeGuide() {
         String bgName = choiceRecipeBg.getValue();
         String ingName = choiceRecipeIng.getValue();
         String qtyStr = addRecipeQty.getText().trim();
 
+        // checks if all fields were filled
         if (bgName == null || ingName == null || qtyStr.isEmpty()) {
             reportMessage("Please select a baked good, an ingredient, and enter a quantity.");
             return;
         }
 
+        // tries to parse number required fields
         float qty;
         try {
             qty = parseFloat(qtyStr);
@@ -158,8 +168,9 @@ public class BakeryController {
             return;
         }
 
+        // tries to add recipe guide
         boolean added = AppData.getStore().addRecipe(bgName, ingName, qty);
-        if (added) {
+        if (added) { // it worked so all fields are cleared for new baked goods to be added
             addRecipeQty.clear();
             fillAllChoiceBoxes();
             refreshAllStock();
@@ -169,6 +180,7 @@ public class BakeryController {
         }
     }
 
+    // edit baked good
     @FXML private void editBakedGood() {
         String currentName = choiceEditBg.getValue();
         if (currentName == null) {
@@ -176,15 +188,14 @@ public class BakeryController {
             return;
         }
 
-        editChoiceBgOrigin.getItems().addAll("Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Antigua and Barbuda", "Argentina", "Armenia", "Australia", "Austria", "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh", "Barbados", "Belarus", "Belgium", "Belize", "Benin", "Bhutan", "Bolivia", "Bosnia and Herzegovina", "Botswana", "Brazil", "Brunei", "Bulgaria", "Burkina Faso", "Burundi", "Cabo Verde", "Cambodia", "Cameroon", "Canada", "Central African Republic", "Chad", "Chile", "China", "Colombia", "Comoros", "Congo", "Costa Rica", "Côte d'Ivoire", "Croatia", "Cuba", "Cyprus", "Czech Republic", "Democratic Republic of the Congo", "Denmark", "Djibouti", "Dominica", "Dominican Republic", "Ecuador", "Egypt", "El Salvador", "Equatorial Guinea", "Eritrea", "Estonia", "Eswatini", "Ethiopia", "Fiji", "Finland", "France", "Gabon", "Gambia", "Georgia", "Germany", "Ghana", "Greece", "Grenada", "Guatemala", "Guinea", "Guinea-Bissau", "Guyana", "Haiti", "Honduras", "Hungary", "Iceland", "India", "Indonesia", "Iran", "Iraq", "Ireland", "Israel", "Italy", "Jamaica", "Japan", "Jordan", "Kazakhstan", "Kenya", "Kiribati", "Kuwait", "Kyrgyzstan", "Laos", "Latvia", "Lebanon", "Lesotho", "Liberia", "Libya", "Liechtenstein", "Lithuania", "Luxembourg", "Madagascar", "Malawi", "Malaysia", "Maldives", "Mali", "Malta", "Marshall Islands", "Mauritania", "Mauritius", "Mexico", "Micronesia", "Moldova", "Monaco", "Mongolia", "Montenegro", "Morocco", "Mozambique", "Myanmar", "Namibia", "Nauru", "Nepal", "Netherlands", "New Zealand", "Nicaragua", "Niger", "Nigeria", "North Korea", "North Macedonia", "Norway", "Oman", "Pakistan", "Palau", "Palestine", "Panama", "Papua New Guinea", "Paraguay", "Peru", "Philippines", "Poland", "Portugal", "Qatar", "Romania", "Russia", "Rwanda", "Saint Kitts and Nevis", "Saint Lucia", "Saint Vincent and the Grenadines", "Samoa", "San Marino", "Sao Tome and Principe", "Saudi Arabia", "Senegal", "Serbia", "Seychelles", "Sierra Leone", "Singapore", "Slovakia", "Slovenia", "Solomon Islands", "Somalia", "South Africa", "South Korea", "South Sudan", "Spain", "Sri Lanka", "Sudan", "Suriname", "Sweden", "Switzerland", "Syria", "Tajikistan", "Tanzania", "Thailand", "Timor-Leste", "Togo", "Tonga", "Trinidad and Tobago", "Tunisia", "Turkey", "Turkmenistan", "Tuvalu", "Uganda", "Ukraine", "United Arab Emirates", "United Kingdom", "United States", "Uruguay", "Uzbekistan", "Vanuatu", "Vatican City", "Venezuela", "Vietnam", "Yemen", "Zambia", "Zimbabwe");
-
         String newName = editBgName.getText().trim();
         String origin = editChoiceBgOrigin.getValue();
         String desc = editBgDesc.getText().trim();
         String img = editBgImg.getText().trim();
 
+        // tries to edit baked good
         boolean edited = AppData.getStore().editBakedGood(currentName, newName, origin, desc, img);
-        if (edited) {
+        if (edited) { // it worked so all fields are cleared for other baked goods to be edited
             editBgName.clear();
             editChoiceBgOrigin.getSelectionModel().clearSelection();
             editBgDesc.clear();
@@ -197,6 +208,7 @@ public class BakeryController {
         }
     }
 
+    // edit ingredient
     @FXML private void editIngredient() {
         String currentName = choiceEditIng.getValue();
         if (currentName == null) {
@@ -208,8 +220,9 @@ public class BakeryController {
         String desc = editIngDesc.getText().trim();
         String calsStr = editIngCals.getText().trim();
 
+        // tries to edit ingredient
         boolean edited = AppData.getStore().editIngredient(currentName, newName, desc, calsStr);
-        if (edited) {
+        if (edited) { // it worked so all fields are cleared for other ingredients to be edited
             editIngName.clear();
             editIngDesc.clear();
             editIngCals.clear();
@@ -221,8 +234,40 @@ public class BakeryController {
         }
     }
 
-    @FXML private void editRecipeGuide() {}
+    // edit recipe guide
+    @FXML private void editRecipeGuide() {
+        String bgName = choiceEditRecipe.getValue();
+        String ingName = editChoiceRecipeIng.getValue();
+        String qtyStr = editRecipeQty.getText().trim();
 
+        // checks if all fields were filled
+        if (bgName == null || ingName == null || qtyStr.isEmpty()) {
+            reportMessage("Please choose a baked good, ingredient, and enter a new quantity.");
+            return;
+        }
+
+        // tries to parse number required fields
+        float qty;
+        try {
+            qty = parseFloat(qtyStr);
+        } catch (NumberFormatException e) {
+            reportMessage("Quantity must be a number (e.g. 50.0).");
+            return;
+        }
+
+        // tries to edit recipe guide
+        boolean edited = AppData.getStore().editRecipeGuide(bgName, ingName, qty);
+        if (edited) { // it worked so all fields are cleared for other recipe guides to be added
+            editRecipeQty.clear();
+            fillAllChoiceBoxes();
+            refreshAllStock();
+            reportMessage("Recipe entry edited: " + ingName + " in " + bgName + " is now " + qty + "g.");
+        } else {
+            reportMessage("Could not edit recipe entry. Please re-select and try again.");
+        }
+    }
+
+    // remove baked good
     @FXML private void removeBakedGood() {
         String name = choiceRemoveBg.getValue();
         if (name == null) {
@@ -230,8 +275,9 @@ public class BakeryController {
             return;
         }
 
+        // tries to remove baked good
         boolean removed = AppData.getStore().removeBakedGood(name);
-        if (removed) {
+        if (removed) { // it worked so all fields are cleared for other baked goods to be removed
             fillAllChoiceBoxes();
             refreshAllStock();
             itemDetails.setText("Baked good removed. Select another to view details.");
@@ -242,6 +288,7 @@ public class BakeryController {
         }
     }
 
+    // remove ingredient
     @FXML private void removeIngredient() {
         String name = choiceRemoveIng.getValue();
         if (name == null) {
@@ -249,8 +296,9 @@ public class BakeryController {
             return;
         }
 
+        // tries to remove ingredient
         boolean removed = AppData.getStore().removeIngredient(name);
-        if (removed) {
+        if (removed) { // it worked so all fields are cleared for other ingredient to be removed
             fillAllChoiceBoxes();
             refreshAllStock();
             itemDetails.setText("Ingredient removed. Select another to view details.");
@@ -261,17 +309,20 @@ public class BakeryController {
         }
     }
 
+    // remove recipe guide
     @FXML private void removeRecipeGuide() {
         String bgName = choiceRemoveRecipeBg.getValue();
         int entryIndex = choiceRemoveGuide.getSelectionModel().getSelectedIndex();
 
+        // checks if all fields were filled
         if (bgName == null || entryIndex < 0) {
             reportMessage("Please select a baked good and a recipe guide to remove.");
             return;
         }
 
+        // tries to remove recipe guide
         boolean removed = AppData.getStore().removeRecipeGuide(bgName, entryIndex);
-        if (removed) {
+        if (removed) { // it worked so all fields are cleared for other recipe guides to be removed
             fillAllChoiceBoxes();
             refreshAllStock();
             reportMessage("Recipe guide removed from '" + bgName + "'.");
@@ -280,10 +331,15 @@ public class BakeryController {
         }
     }
 
+    // called when recipe guide 'baked good' is filled. Fills recipe guide ChoiceBox.
     @FXML private void removeRecipeBgChanged() {
         fillRecipeGuideForRemove(choiceRemoveGuide);
     }
 
+    // called when baked good is filled. Fills ingredient ChoiceBox.
+    @FXML private void editRecipeBgChanged() { fillRecipeIngForEdit(editChoiceRecipeIng); }
+
+    // browse baked good
     @FXML private void browseBakedGood() {
         String name = browseBakedGood.getValue();
         itemImage.setImage(null);
@@ -292,9 +348,11 @@ public class BakeryController {
             return;
         }
 
+        // looks for the baked good
         BakedGood bg = AppData.getStore().findBakedGood(name);
         if (bg == null) return;
 
+        // shows its details to the area
         itemDetails.setText(bg.getFullDetails());
         showImage(bg.getImageUrl());
     }
@@ -394,6 +452,8 @@ public class BakeryController {
 
         fillRecipeGuideForRemove(choiceRemoveGuide);
 
+        fillRecipeIngForEdit(editChoiceRecipeIng);
+
         browseBakedGood.getItems().clear();
         browseIngredient.getItems().clear();
         BakeryStore store = AppData.getStore();
@@ -438,6 +498,23 @@ public class BakeryController {
         Recipe r = bg.getRecipe();
         for (int i = 0; i < r.size(); i++) {
             box.getItems().add(r.getRecipe(i).toString());
+        }
+        if (!box.getItems().isEmpty()) {
+            box.getSelectionModel().selectFirst();
+        }
+    }
+
+    private void fillRecipeIngForEdit(ChoiceBox<String> box) {
+        box.getItems().clear();
+        String bgName = choiceEditRecipe.getValue();
+        if (bgName == null) return;
+
+        BakedGood bg = AppData.getStore().findBakedGood(bgName);
+        if (bg == null) return;
+
+        Recipe r = bg.getRecipe();
+        for (int i = 0; i < r.size(); i++) {
+            box.getItems().add(r.getRecipe(i).getIngredient().getName());
         }
         if (!box.getItems().isEmpty()) {
             box.getSelectionModel().selectFirst();

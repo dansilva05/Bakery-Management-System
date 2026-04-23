@@ -50,6 +50,21 @@ public class BakeryStore implements Serializable {
         return true;
     }
 
+    // edits the quantity of a recipe guide
+    public boolean editRecipeGuide(String bakedGoodName, String ingredientName, double newQuantity) {
+        BakedGood bg = findBakedGood(bakedGoodName);
+        if (bg == null) return false;
+
+        Recipe r = bg.getRecipe();
+        for (int i = 0; i < r.size(); i++) {
+            if (r.getRecipe(i).getIngredient().getName().equalsIgnoreCase(ingredientName)) {
+                r.getRecipe(i).setQuantity(newQuantity);
+                return true;
+            }
+        }
+        return false;
+    }
+
     // edits a baked good's field, when field is filled. Null or empty values, keep old value
     public boolean editBakedGood(String currentName, String newName, String origin, String desc, String img) {
         BakedGood bg = findBakedGood(currentName);

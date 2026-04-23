@@ -25,7 +25,7 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="670.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ie.setu.bakeryca.controllers.BakeryController">
     <center>
-        <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+        <TabPane prefHeight="684.0" prefWidth="1000.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
             <tabs>
                 <Tab text="Manage Store">
                     <content>
@@ -210,20 +210,17 @@
                                           <ColumnConstraints hgrow="SOMETIMES" prefWidth="280.0" />
                                        </columnConstraints>
                                        <rowConstraints>
-                                          <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
                                           <RowConstraints prefHeight="40.0" vgrow="SOMETIMES" />
                                           <RowConstraints prefHeight="40.0" vgrow="SOMETIMES" />
                                        </rowConstraints>
                                        <children>
-                                          <Label text="Baked Good" GridPane.rowIndex="1" />
-                                          <ChoiceBox fx:id="editChoiceRecipeBg" prefHeight="25.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                          <Label text="Ingredient" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                                          <ChoiceBox fx:id="editChoiceRecipeIng" prefHeight="25.0" prefWidth="250.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-                                          <Label text="Quantity (g/ml)" GridPane.rowIndex="2" />
-                                          <TextField fx:id="editRecipeQty" prefHeight="25.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                          <Button mnemonicParsing="false" onAction="#editRecipeGuide" prefHeight="30.0" prefWidth="140.0" text="Edit Recipe" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+                                          <Label text="Ingredient" GridPane.columnIndex="2" />
+                                          <ChoiceBox fx:id="editChoiceRecipeIng" prefHeight="25.0" prefWidth="250.0" GridPane.columnIndex="3" />
+                                          <Label text="Quantity (g/ml)" GridPane.rowIndex="1" />
+                                          <TextField fx:id="editRecipeQty" prefHeight="25.0" prefWidth="250.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                          <Button mnemonicParsing="false" onAction="#editRecipeGuide" prefHeight="30.0" prefWidth="140.0" text="Edit Recipe" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                                           <Label prefHeight="40.0" prefWidth="112.0" text="Choose Baked Good's Recipe" textAlignment="CENTER" wrapText="true" />
-                                          <ChoiceBox fx:id="choiceEditRecipe" prefHeight="25.0" prefWidth="250.0" GridPane.columnIndex="1" />
+                                          <ChoiceBox fx:id="choiceEditRecipe" onAction="#editRecipeBgChanged" prefHeight="25.0" prefWidth="250.0" GridPane.columnIndex="1" />
                                        </children>
                                     </GridPane>
                                  </content>
@@ -305,7 +302,7 @@
                                                     <children>
                                                         <Label text="Baked Good" />
                                                         <ChoiceBox fx:id="choiceRemoveRecipeBg" onAction="#removeRecipeBgChanged" prefHeight="25.0" prefWidth="250.0" GridPane.columnIndex="1" />
-                                                        <Label text="Recipe Entry" GridPane.columnIndex="2" />
+                                                        <Label text="Recipe Guide" GridPane.columnIndex="2" />
                                                         <ChoiceBox fx:id="choiceRemoveGuide" prefHeight="25.0" prefWidth="250.0" GridPane.columnIndex="3" />
                                                         <Button mnemonicParsing="false" onAction="#removeRecipeGuide" prefHeight="30.0" prefWidth="150.0" text="Remove Recipe Entry" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                                                     </children>
