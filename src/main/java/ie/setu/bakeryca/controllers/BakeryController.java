@@ -69,6 +69,14 @@ public class BakeryController {
     private LinkedList<SearchResult> lastSearchResults = new LinkedList<>();
 
     @FXML public void initialize() {
+        // try to load saved data as soon as opened
+        // ignores if there is no saved file
+        try {
+            AppData.setStore(StoreFileManager.loadStore(AppData.getSaveFile()));
+        } catch (Exception e) {
+            // no save file
+        }
+
         reportMessage("Welcome!");
         fillAllChoiceBoxes();
         refreshAllStock();
