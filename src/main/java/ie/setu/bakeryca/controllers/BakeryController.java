@@ -376,16 +376,17 @@ public class BakeryController {
 
     @FXML private void search() {
         String term = searchBar.getText().trim();
+        String option = choiceSearchBy.getValue();
         if (term.isEmpty()) {
             reportMessage("Please type something in the search box before searching.");
             return;
         }
 
-        lastSearchResults = AppData.getStore().search(term);
+        lastSearchResults = AppData.getStore().search(term, option);
         searchResults.getItems().clear();
 
         if (lastSearchResults.isEmpty()) {
-            itemDetails.setText("No results found matching '" + term + "'.");
+            itemDetails.setText("No results found matching '" + term + "' (" + option + ").");
             itemImage.setImage(null);
         } else {
             for (int i = 0; i < lastSearchResults.size(); i++) {

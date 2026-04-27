@@ -39,16 +39,24 @@ public class BakedGood implements Serializable {
         return recipe.removeEntry(index);
     }
 
-    // checks name, origin, description, and all recipe ingredients for what is being searched
-    public boolean matchesSearch(String term) {
+    // checks if the searched term matches with anything in the baked good
+    // now depending on 'search by' option
+    public boolean matchesSearch(String term, String option) {
         String lower = term.toLowerCase();
+        if (option.equals("Name only")) {
+            return name.toLowerCase().contains(lower);
+        }
+        if (option.equals("Description only")) {
+            return description.toLowerCase().contains(lower);
+        }
+        // if "Any field", just checks everything
         if (name.toLowerCase().contains(lower)
                 || placeOfOrigin.toLowerCase().contains(lower)
                 || description.toLowerCase().contains(lower)) {
             return true;
         }
-        for (int i = 0; i < recipe.size(); i++) {  // checks each recipe entry too
-            if (recipe.getRecipe(i).getIngredient().matchesSearch(term)) {
+        for (int i = 0; i < recipe.size(); i++) {
+            if (recipe.getRecipe(i).getIngredient().matchesSearch(term, option)) {
                 return true;
             }
         }

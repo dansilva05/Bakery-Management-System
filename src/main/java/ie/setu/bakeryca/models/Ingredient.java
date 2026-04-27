@@ -23,8 +23,16 @@ public class Ingredient implements Serializable {
     public void setCaloriesPer100g(double caloriesPer100g) { this.caloriesPer100g = caloriesPer100g; }
 
     // checks if the searched term matches with anything in the ingredient
-    public boolean matchesSearch(String term) {
+    // now depending on 'search by' option
+    public boolean matchesSearch(String term, String option) {
         String lower = term.toLowerCase();
+        if (option.equals("Name only")) {
+            return name.toLowerCase().contains(lower);
+        }
+        if (option.equals("Description only")) {
+            return description.toLowerCase().contains(lower);
+        }
+        // "Any field"
         return name.toLowerCase().contains(lower)
                 || description.toLowerCase().contains(lower)
                 || String.valueOf(caloriesPer100g).contains(lower);

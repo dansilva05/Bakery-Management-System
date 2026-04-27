@@ -165,16 +165,16 @@ public class BakeryStore implements Serializable {
         return bg.getRecipe().removeEntry(entryIndex);
     }
 
-    // searches every baked good and every ingredient for anything matching the term
-    public LinkedList<SearchResult> search(String term) {
+    // searches every baked good and every ingredient using the given option
+    public LinkedList<SearchResult> search(String term, String option) {
         LinkedList<SearchResult> results = new LinkedList<>();
         for (int i = 0; i < bakedGoods.size(); i++) {
-            if (bakedGoods.get(i).matchesSearch(term)) {
+            if (bakedGoods.get(i).matchesSearch(term, option)) {
                 results.add(new SearchResult(bakedGoods.get(i)));
             }
         }
         for (int i = 0; i < ingredients.size(); i++) {
-            if (ingredients.get(i).matchesSearch(term)) {
+            if (ingredients.get(i).matchesSearch(term, option)) {
                 results.add(new SearchResult(ingredients.get(i)));
             }
         }
