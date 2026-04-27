@@ -172,4 +172,21 @@ public class BakeryStoreTest {
         assertNull(store.findIngredient("Flour"), "old ingredient name should be gone");
         assertSame(ingRef, store.findIngredient("White Flour"), "should be the same Ingredient object");
     }
+
+    @Test
+    public void sortIngredientsByNameProducesAlphabeticalOrder() {
+        LinkedList<Ingredient> list = new LinkedList<>();
+        list.add(new Ingredient("Sugar", "white", 387));
+        list.add(new Ingredient("Butter", "salted", 717));
+        list.add(new Ingredient("Flour", "plain", 364));
+        list.add(new Ingredient("Almonds", "blanched", 579));
+
+        Sort.sortIngredientsByName(list);
+
+        assertEquals("Almonds", list.get(0).getName(), "Almonds should be first");
+        assertEquals("Butter", list.get(1).getName());
+        assertEquals("Flour", list.get(2).getName());
+        assertEquals("Sugar", list.get(3).getName(), "Sugar should be last");
+        assertEquals(4, list.size(), "size should be unchanged after sort");
+    }
 }
