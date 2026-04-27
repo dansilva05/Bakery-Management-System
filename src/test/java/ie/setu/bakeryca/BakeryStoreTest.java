@@ -61,7 +61,7 @@ public class BakeryStoreTest {
 
         boolean removed = store.removeIngredient("Flour");
 
-        assertTrue(removed, "remove should report success");
+        assertTrue(removed, "remove should return true");
         assertNull(store.findIngredient("Flour"), "Flour should not be in the store");
         assertEquals(1, store.findBakedGood("Cake").getRecipe().size(), "Cake should now only have Sugar");
         assertEquals(0, store.findBakedGood("Bread").getRecipe().size(), "Bread should have no entries left");
@@ -104,9 +104,8 @@ public class BakeryStoreTest {
         assertEquals("364 kcal", table.get("Flour"));
         assertEquals("387 kcal", table.get("Sugar"));
         assertEquals("717 kcal", table.get("Butter"));
-        assertEquals(3, table.size(), "size should be 3 after three puts");
+        assertEquals(3, table.size(), "size should be 3 after three 'put's");
 
-        // case-insensitive lookup
         assertEquals("364 kcal", table.get("FLOUR"), "should find Flour with any case");
         assertEquals("717 kcal", table.get("butter"), "lowercase lookup should work too");
 
@@ -141,10 +140,36 @@ public class BakeryStoreTest {
         assertEquals("first value", table.get("abc"), "first key still retrievable after collision");
         assertEquals("second value", table.get("cba"), "second key retrievable after collision");
 
-        // remove one, the other survives, which proves we're not storing them as one
+        // remove one, the other survives, which proves they're not being stored as one
         table.remove("abc");
         assertNull(table.get("abc"), "removed key should be gone");
         assertEquals("second value", table.get("cba"), "other colliding key should still be there");
         assertEquals(1, table.size());
+    }
+
+    @Test
+    public void renameUpdatesHashTable() {
+        BakeryStore store = new BakeryStore();
+        store.addBakedGood(new BakedGood("Cake", "Ireland", "sponge", ""));
+        BakedGood originalRef = store.findBakedGood("Cake");
+
+        // rename Cake to Chocolate Cake
+        boolean edited = store.editBakedGood("Cake", "Chocolate Cake", "", "", "");
+        assertTrue(edited, "edit should succeed");
+
+        // old key should now resolve to nothing
+        assertNull(store.findBakedGood("Cake"), "old name should not be findable anymore");
+
+        // new key should resolve, and to the SAME object (not a new one)
+        BakedGood newRef = store.findBakedGood("Chocolate Cake");
+        assertNotNull(newRef, "new name should be findable");
+        assertSame(originalRef, newRef, "should be the same object, just renamed");
+
+        // same test for ingredient renames
+        store.addIngredient(new Ingredient("Flour", "plain", 364));
+        Ingredient ingRef = store.findIngredient("Flour");
+        store.editIngredient("Flour", "White Flour", "", "");
+        assertNull(store.findIngredient("Flour"), "old ingredient name should be gone");
+        assertSame(ingRef, store.findIngredient("White Flour"), "should be the same Ingredient object");
     }
 }
