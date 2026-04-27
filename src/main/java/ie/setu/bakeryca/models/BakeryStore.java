@@ -206,6 +206,13 @@ public class BakeryStore implements Serializable {
         if (bakedGoods.isEmpty()) {
             return "No baked goods in the store to report.";
         }
+
+        LinkedList<BakedGood> sorted = new LinkedList<>();
+        for (int i = 0; i < bakedGoods.size(); i++) {
+            sorted.add(bakedGoods.get(i));
+        }
+        Sort.sortBakedGoodsByCalories(sorted);
+
         String report = "=== Calories Report ===\n\n";
         for (int i = 0; i < bakedGoods.size(); i++) {
             BakedGood bg = bakedGoods.get(i);
