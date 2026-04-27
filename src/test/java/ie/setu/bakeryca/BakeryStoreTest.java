@@ -189,4 +189,32 @@ public class BakeryStoreTest {
         assertEquals("Sugar", list.get(3).getName(), "Sugar should be last");
         assertEquals(4, list.size(), "size should be unchanged after sort");
     }
+
+    @Test
+    public void sortBakedGoodsByCaloriesProducesLowToHigh() {
+        Ingredient sugar = new Ingredient("Sugar", "white", 400);
+        Ingredient flour = new Ingredient("Flour", "plain", 300);
+
+        BakedGood high = new BakedGood("HighCal", "United States", "Diabetes risk.", "");
+        high.getRecipe().addEntry(new RecipeGuide(sugar, 100));
+        high.getRecipe().addEntry(new RecipeGuide(flour, 100));
+
+        BakedGood low = new BakedGood("LowCal", "United Kingdom", "Afternoon tea.", "");
+        low.getRecipe().addEntry(new RecipeGuide(flour, 100));
+
+        BakedGood mid = new BakedGood("MidCal", "Afghanistan", "Something", "");
+        mid.getRecipe().addEntry(new RecipeGuide(sugar, 100));
+
+        LinkedList<BakedGood> list = new LinkedList<>();
+        list.add(high);
+        list.add(low);
+        list.add(mid);
+
+        Sort.sortBakedGoodsByCalories(list);
+
+        // it should be: low(300) < mid(400) < high(700)
+        assertEquals("LowCal", list.get(0).getName(), "lowest calories should be first");
+        assertEquals("MidCal", list.get(1).getName());
+        assertEquals("HighCal", list.get(2).getName(), "highest calories should be last");
+    }
 }
