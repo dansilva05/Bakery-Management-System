@@ -374,6 +374,16 @@
                                                         <Insets bottom="15.0" left="15.0" right="10.0" />
                                                     </VBox.margin>
                                                 </ChoiceBox>
+                                                <Label text="Sort by">
+                                                    <VBox.margin>
+                                                        <Insets bottom="5.0" left="20.0" right="10.0" />
+                                                    </VBox.margin>
+                                                </Label>
+                                                <ChoiceBox fx:id="choiceSortBy" prefHeight="25.0" prefWidth="200.0">
+                                                    <VBox.margin>
+                                                        <Insets bottom="15.0" left="15.0" right="10.0" />
+                                                    </VBox.margin>
+                                                </ChoiceBox>
                                                 <Label text="Search">
                                                     <VBox.margin>
                                                         <Insets bottom="5.0" left="20.0" right="10.0" />
