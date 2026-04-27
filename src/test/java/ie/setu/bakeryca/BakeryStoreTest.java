@@ -93,4 +93,38 @@ public class BakeryStoreTest {
         assertEquals(0, noMatch.size(), "no results for pizza");
     }
 
+    @Test
+    public void putGetRemoveBasics() {
+        HashTable<String> table = new HashTable<>();
+
+        table.put("Flour", "364 kcal");
+        table.put("Sugar", "387 kcal");
+        table.put("Butter", "717 kcal");
+
+        assertEquals("364 kcal", table.get("Flour"));
+        assertEquals("387 kcal", table.get("Sugar"));
+        assertEquals("717 kcal", table.get("Butter"));
+        assertEquals(3, table.size(), "size should be 3 after three puts");
+
+        // case-insensitive lookup
+        assertEquals("364 kcal", table.get("FLOUR"), "should find Flour with any case");
+        assertEquals("717 kcal", table.get("butter"), "lowercase lookup should work too");
+
+        // missing key returns null
+        assertNull(table.get("Eggs"), "missing key should return null");
+
+        // remove and check
+        boolean removed = table.remove("Sugar");
+        assertTrue(removed, "remove should return true");
+        assertNull(table.get("Sugar"), "Sugar should be gone after remove");
+        assertEquals(2, table.size(), "size should drop to 2 after remove");
+
+        // removing again returns false
+        assertFalse(table.remove("Sugar"), "removing a missing key should return false");
+
+        // overwriting an existing key replaces value, doesn't add
+        table.put("Flour", "different value");
+        assertEquals("different value", table.get("Flour"), "put should overwrite existing key");
+        assertEquals(2, table.size(), "size should stay 2 after overwrite, not become 3");
+    }
 }
