@@ -46,6 +46,19 @@ public class LinkedList<T> implements Serializable {
         return current.data;
     }
 
+    // replaces the item at the given position
+    public boolean set(int index, T data) {
+        if (index < 0 || index >= size) {
+            return false;
+        }
+        Node current = head;
+        for (int i = 0; i < index; i++) {
+            current = current.next;
+        }
+        current.data = data;
+        return true;
+    }
+
     // removes item at the given position, returns true if it worked
     public boolean remove(int index) {
         if (index < 0 || index >= size) {
