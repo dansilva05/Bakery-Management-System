@@ -1,16 +1,20 @@
 package ie.setu.bakeryca.models;
 
-import ie.setu.bakeryca.core.LinkedList;
+import ie.setu.bakeryca.core.*;
 import java.io.Serializable;
 
 public class BakeryStore implements Serializable {
 
     private LinkedList<BakedGood> bakedGoods;
     private LinkedList<Ingredient> ingredients;
+    private HashTable<BakedGood> bakedGoodTable;
+    private HashTable<Ingredient> ingredientTable;
 
     public BakeryStore() {
         bakedGoods = new LinkedList<>();
         ingredients = new LinkedList<>();
+        bakedGoodTable = new HashTable<>();
+        ingredientTable = new HashTable<>();
     }
 
     public LinkedList<BakedGood> getBakedGoods() {
@@ -27,6 +31,7 @@ public class BakeryStore implements Serializable {
             return false;
         }
         bakedGoods.add(bg);
+        bakedGoodTable.put(bg.getName(), bg);
         return true;
     }
 
@@ -36,6 +41,7 @@ public class BakeryStore implements Serializable {
             return false;
         }
         ingredients.add(ing);
+        ingredientTable.put(ing.getName(), ing);
         return true;
     }
 
@@ -72,8 +78,10 @@ public class BakeryStore implements Serializable {
 
         // if new name is different and not empty, it checks if name is not already taken
         if (newName != null && !newName.isEmpty() && !newName.equalsIgnoreCase(currentName)) {
-            if (findBakedGood(newName) != null) return false; // new name clashes with another
+            if (findBakedGood(newName) != null) return false;
+            bakedGoodTable.remove(currentName);// remove under old key
             bg.setName(newName);
+            bakedGoodTable.put(newName, bg); // add under new key
         }
         if (origin != null && !origin.isEmpty()) bg.setPlaceOfOrigin(origin);
         if (desc != null && !desc.isEmpty()) bg.setDescription(desc);
@@ -88,7 +96,9 @@ public class BakeryStore implements Serializable {
 
         if (newName != null && !newName.isEmpty() && !newName.equalsIgnoreCase(currentName)) {
             if (findIngredient(newName) != null) return false;
+            ingredientTable.remove(currentName);
             ing.setName(newName);
+            ingredientTable.put(newName, ing);
         }
         if (desc != null && !desc.isEmpty()) ing.setDescription(desc);
         if (calsStr != null && !calsStr.isEmpty()) {
@@ -101,31 +111,23 @@ public class BakeryStore implements Serializable {
         return true;
     }
 
-    // finds a baked good by its name, returns null if not found
+    // uses hash table to find baked good
     public BakedGood findBakedGood(String name) {
-        for (int i = 0; i < bakedGoods.size(); i++) {
-            if (bakedGoods.get(i).getName().equalsIgnoreCase(name)) {
-                return bakedGoods.get(i);
-            }
-        }
-        return null;
+        return bakedGoodTable.get(name);
     }
 
-    // finds an ingredient by its name, returns null if not found
+    // uses hash table to find ingredient
     public Ingredient findIngredient(String name) {
-        for (int i = 0; i < ingredients.size(); i++) {
-            if (ingredients.get(i).getName().equalsIgnoreCase(name)) {
-                return ingredients.get(i);
-            }
-        }
-        return null;
+        return ingredientTable.get(name);
     }
 
     // removes a baked good by name, returns true if it worked
     public boolean removeBakedGood(String name) {
         for (int i = 0; i < bakedGoods.size(); i++) {
             if (bakedGoods.get(i).getName().equalsIgnoreCase(name)) {
-                return bakedGoods.remove(i);
+                bakedGoods.remove(i);
+                bakedGoodTable.remove(name);
+                return true;
             }
         }
         return false;
@@ -149,10 +151,12 @@ public class BakeryStore implements Serializable {
                 }
             }
         }
-        // then remove from the main ingredients list
+        // then remove from the main ingredients list and the hash table
         for (int i = 0; i < ingredients.size(); i++) {
             if (ingredients.get(i).getName().equalsIgnoreCase(name)) {
-                return ingredients.remove(i);
+                ingredients.remove(i);
+                ingredientTable.remove(name);
+                return true;
             }
         }
         return false;
