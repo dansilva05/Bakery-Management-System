@@ -127,4 +127,24 @@ public class BakeryStoreTest {
         assertEquals("different value", table.get("Flour"), "put should overwrite existing key");
         assertEquals(2, table.size(), "size should stay 2 after overwrite, not become 3");
     }
+
+    @Test
+    public void collisionsAreHandledByChaining() {
+        HashTable<String> table = new HashTable<>();
+
+        // "abc" and "cba" both have char codes, so both hash to the same slot
+        // they should be allocated to the same slot, via the chain
+        table.put("abc", "first value");
+        table.put("cba", "second value");
+
+        assertEquals(2, table.size(), "both keys should be stored even though they collide");
+        assertEquals("first value", table.get("abc"), "first key still retrievable after collision");
+        assertEquals("second value", table.get("cba"), "second key retrievable after collision");
+
+        // remove one, the other survives, which proves we're not storing them as one
+        table.remove("abc");
+        assertNull(table.get("abc"), "removed key should be gone");
+        assertEquals("second value", table.get("cba"), "other colliding key should still be there");
+        assertEquals(1, table.size());
+    }
 }
