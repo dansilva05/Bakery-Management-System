@@ -1,6 +1,7 @@
 package ie.setu.bakeryca;
 
 import ie.setu.bakeryca.models.*;
+import ie.setu.bakeryca.core.*;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -65,4 +66,31 @@ public class BakeryStoreTest {
         assertEquals(1, store.findBakedGood("Cake").getRecipe().size(), "Cake should now only have Sugar");
         assertEquals(0, store.findBakedGood("Bread").getRecipe().size(), "Bread should have no entries left");
     }
+
+    @Test
+    public void searchMatchesByNameDescriptionAndRecipe() {
+        BakeryStore store = new BakeryStore();
+        store.addIngredient(new Ingredient("Dark Chocolate", "70% cocoa", 500));
+        store.addBakedGood(new BakedGood("Brownies", "USA", "Chocolatey treat", ""));
+        store.addBakedGood(new BakedGood("Cake", "Ireland", "Plain sponge", ""));
+
+        store.addRecipe("Brownies", "Dark Chocolate", 50);
+
+        // search by name - should match Brownies (name contains "brown")
+        LinkedList<SearchResult> byName = store.search("brown", "Any field");
+        assertEquals(1, byName.size(), "should find Brownies by name");
+
+        // search by description - should match Brownies (description contains "treat")
+        LinkedList<SearchResult> byDesc = store.search("treat", "Any field");
+        assertEquals(1, byDesc.size(), "should find Brownies by description");
+
+        // search by recipe ingredient - "chocolate" matches Brownies' recipe AND the ingredient itself
+        LinkedList<SearchResult> byRecipeIng = store.search("chocolate", "Any field");
+        assertEquals(2, byRecipeIng.size(), "should find Brownies (via recipe) and Dark Chocolate (the ingredient)");
+
+        // negative case - nothing matches
+        LinkedList<SearchResult> noMatch = store.search("pizza", "Any field");
+        assertEquals(0, noMatch.size(), "no results for pizza");
+    }
+
 }
