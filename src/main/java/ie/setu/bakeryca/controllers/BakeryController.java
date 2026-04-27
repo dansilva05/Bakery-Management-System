@@ -483,17 +483,36 @@ public class BakeryController {
         browseBakedGood.getItems().clear();
         browseIngredient.getItems().clear();
         BakeryStore store = AppData.getStore();
+
+        LinkedList<BakedGood> sortedBg = new LinkedList<>();
         for (int i = 0; i < store.getBakedGoods().size(); i++) {
-            browseBakedGood.getItems().add(store.getBakedGoods().get(i).getName());
+            sortedBg.add(store.getBakedGoods().get(i));
         }
+        Sort.sortBakedGoodsByName(sortedBg);
+        for (int i = 0; i < sortedBg.size(); i++) {
+            browseBakedGood.getItems().add(sortedBg.get(i).getName());
+        }
+
+        LinkedList<Ingredient> sortedIng = new LinkedList<>();
         for (int i = 0; i < store.getIngredients().size(); i++) {
-            browseIngredient.getItems().add(store.getIngredients().get(i).getName());
+            sortedIng.add(store.getIngredients().get(i));
+        }
+        Sort.sortIngredientsByName(sortedIng);
+        for (int i = 0; i < sortedIng.size(); i++) {
+            browseIngredient.getItems().add(sortedIng.get(i).getName());
         }
     }
 
     private void fillChoiceBoxBg(ChoiceBox<String> box) {
         box.getItems().clear();
         BakeryStore store = AppData.getStore();
+
+        LinkedList<BakedGood> sorted = new LinkedList<>();
+        for (int i = 0; i < store.getBakedGoods().size(); i++) {
+            sorted.add(store.getBakedGoods().get(i));
+        }
+        Sort.sortBakedGoodsByName(sorted);
+
         for (int i = 0; i < store.getBakedGoods().size(); i++) {
             box.getItems().add(store.getBakedGoods().get(i).getName());
         }
@@ -505,6 +524,13 @@ public class BakeryController {
     private void fillChoiceBoxIng(ChoiceBox<String> box) {
         box.getItems().clear();
         BakeryStore store = AppData.getStore();
+
+        LinkedList<Ingredient> sorted = new LinkedList<>();
+        for (int i = 0; i < store.getIngredients().size(); i++) {
+            sorted.add(store.getIngredients().get(i));
+        }
+        Sort.sortIngredientsByName(sorted);
+
         for (int i = 0; i < store.getIngredients().size(); i++) {
             box.getItems().add(store.getIngredients().get(i).getName());
         }
