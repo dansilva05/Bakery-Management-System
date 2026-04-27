@@ -12,6 +12,10 @@ repositories {
     mavenCentral()
 }
 
+dependencies {
+    testImplementation("org.junit.jupiter:junit-jupiter:5.10.0")
+}
+
 java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(21)
@@ -30,4 +34,8 @@ application {
 javafx {
     version = "21.0.6"
     modules = listOf("javafx.controls", "javafx.fxml")
+}
+
+tasks.test {
+    useJUnitPlatform()
 }
