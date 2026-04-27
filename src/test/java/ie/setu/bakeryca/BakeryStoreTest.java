@@ -40,4 +40,29 @@ public class BakeryStoreTest {
         double expected = 250 + 364; // 614 kcal
         assertEquals(expected, brownies.getRecipe().getTotalCalories(), 0.001);
     }
+
+    @Test
+    public void removeIngredientStripsItFromRecipes() {
+        BakeryStore store = new BakeryStore();
+        store.addIngredient(new Ingredient("Flour", "plain", 364));
+        store.addIngredient(new Ingredient("Sugar", "white", 387));
+        store.addBakedGood(new BakedGood("Cake", "Ireland", "sponge", ""));
+        store.addBakedGood(new BakedGood("Bread", "France", "loaf", ""));
+
+        // Flour goes into both recipes, Sugar only into Cake
+        store.addRecipe("Cake", "Flour", 200);
+        store.addRecipe("Cake", "Sugar", 150);
+        store.addRecipe("Bread", "Flour", 300);
+
+        // before remove: Cake has 2 entries, Bread has 1
+        assertEquals(2, store.findBakedGood("Cake").getRecipe().size());
+        assertEquals(1, store.findBakedGood("Bread").getRecipe().size());
+
+        boolean removed = store.removeIngredient("Flour");
+
+        assertTrue(removed, "remove should report success");
+        assertNull(store.findIngredient("Flour"), "Flour should not be in the store");
+        assertEquals(1, store.findBakedGood("Cake").getRecipe().size(), "Cake should now only have Sugar");
+        assertEquals(0, store.findBakedGood("Bread").getRecipe().size(), "Bread should have no entries left");
+    }
 }
