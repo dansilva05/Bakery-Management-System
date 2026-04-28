@@ -16,7 +16,7 @@ public class HashTable<V> implements Serializable {
     }
 
     private static final int tableSize = 53;
-    private LinkedList<Entry>[] hashTable;  // array of chains. Each chain is a list of Entry's
+    private LinkedList<Entry>[] hashTable; // array of chains. Each chain is a list of Entry's
     private int size;
 
 
@@ -44,7 +44,6 @@ public class HashTable<V> implements Serializable {
         // look through the chain in case the key is already there
         for (int i = 0; i < chain.size(); i++) {
             if (chain.get(i).key.equalsIgnoreCase(key)) {
-                chain.get(i).value = value;  // overwrite if key already exists (prevents duplicates)
                 return;
             }
         }

@@ -68,7 +68,7 @@ public class Sort {
         }
     }
 
-    // sorts mixed search results by calories, lowest first
+    // sorts mixed search results by calories, lowest to highest
     // (baked goods use total recipe calories, ingredients use kcal/100g)
     public static void sortSearchResultsByCalories(LinkedList<SearchResult> list) {
         for (int e = 1; e < list.size(); e++) {
@@ -82,7 +82,7 @@ public class Sort {
         }
     }
 
-    // helper - pulls the name out of either kind of search result
+    // pulls the name out of either kind of search result
     private static String nameOf(SearchResult sr) {
         if (sr.getType().equals("BakedGood")) {
             return sr.getBakedGood().getName();
@@ -91,7 +91,7 @@ public class Sort {
         }
     }
 
-    // helper - pulls the calorie value out of either kind of search result
+    // pulls the calorie value out of either kind of search result
     private static double caloriesOf(SearchResult sr) {
         if (sr.getType().equals("BakedGood")) {
             return sr.getBakedGood().getRecipe().getTotalCalories();
