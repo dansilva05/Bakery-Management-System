@@ -19,7 +19,6 @@ public class HashTable<V> implements Serializable {
     private LinkedList<Entry>[] hashTable; // array of chains. Each chain is a list of Entry's
     private int size;
 
-
     public HashTable() {
         hashTable = (LinkedList<Entry>[]) new LinkedList[tableSize];
         for (int i = 0; i < tableSize; i++) {

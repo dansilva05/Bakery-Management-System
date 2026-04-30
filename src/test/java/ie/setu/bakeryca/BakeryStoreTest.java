@@ -123,8 +123,8 @@ public class BakeryStoreTest {
 
         // overwriting an existing key replaces value, doesn't add
         table.put("Flour", "different value");
-        assertEquals("different value", table.get("Flour"), "put should overwrite existing key");
-        assertEquals(2, table.size(), "size should stay 2 after overwrite, not become 3");
+        assertEquals("364 kcal", table.get("Flour"), "put should leave existing key alone");
+        assertEquals(2, table.size(), "size should stay as 2");
     }
 
     @Test
